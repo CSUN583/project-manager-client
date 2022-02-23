@@ -6,6 +6,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+### `npm predeploy` and `npm deploy`
+
+Please refer to the official create-react-app [deployment documentation](https://create-react-app.dev/docs/deployment/#github-pages).
+
 ### `npm start`
 
 Runs the app in the development mode.\
