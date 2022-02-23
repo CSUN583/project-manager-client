@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/CSUN583/project-manager-client/static/css/main.073c9b0a.css",
-    "main.js": "/CSUN583/project-manager-client/static/js/main.91ab9b2e.js",
-    "static/js/787.28cb0dcd.chunk.js": "/CSUN583/project-manager-client/static/js/787.28cb0dcd.chunk.js",
-    "static/media/logo.svg": "/CSUN583/project-manager-client/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
-    "index.html": "/CSUN583/project-manager-client/index.html",
-    "main.073c9b0a.css.map": "/CSUN583/project-manager-client/static/css/main.073c9b0a.css.map",
-    "main.91ab9b2e.js.map": "/CSUN583/project-manager-client/static/js/main.91ab9b2e.js.map",
-    "787.28cb0dcd.chunk.js.map": "/CSUN583/project-manager-client/static/js/787.28cb0dcd.chunk.js.map"
+    "main.css": "/project-manager-client/static/css/main.073c9b0a.css",
+    "main.js": "/project-manager-client/static/js/main.e1189462.js",
+    "static/js/787.28cb0dcd.chunk.js": "/project-manager-client/static/js/787.28cb0dcd.chunk.js",
+    "static/media/logo.svg": "/project-manager-client/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/project-manager-client/index.html",
+    "main.073c9b0a.css.map": "/project-manager-client/static/css/main.073c9b0a.css.map",
+    "main.e1189462.js.map": "/project-manager-client/static/js/main.e1189462.js.map",
+    "787.28cb0dcd.chunk.js.map": "/project-manager-client/static/js/787.28cb0dcd.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.91ab9b2e.js"
+    "static/js/main.e1189462.js"
   ]
 }
