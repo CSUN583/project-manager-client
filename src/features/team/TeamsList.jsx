@@ -6,8 +6,11 @@ import {TeamContext} from "./TeamsPage";
 
 
 const TeamsList = () => {
-    const [team, setTeam] = useContext(TeamContext)
-    console.log(team, setTeam)
+    const [teamId, setTeamId] = useContext(TeamContext)
+
+    const handleClick = (id) => {
+        setTeamId(id)
+    }
 
     const LIST_TEAMS = gql`
         {
@@ -56,7 +59,7 @@ const TeamsList = () => {
                     disablePadding
                 >
                     <ListItemButton
-                        onClick={() => setTeam(t.id)}
+                        onClick={() => handleClick(t.id)}
                     >
                         <ListItemText
                             primary = {

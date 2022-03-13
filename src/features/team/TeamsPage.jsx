@@ -1,15 +1,15 @@
-import {createContext, useState} from 'react';
+import {createContext, useState} from "react";
 import Teams from "./Teams";
 import Team from "./Team";
 
 export const TeamContext = createContext([]);
 
 const TeamsPage = () => {
-    const [team, setTeam] = useState('test')
+    const [teamId, setTeamId] = useState(null);
 
     return (
-        <TeamContext.Provider value={[team, setTeam]}>
-            {team ? <Team /> : <Teams />}
+        <TeamContext.Provider value={[teamId, setTeamId]}>
+            {teamId == null ? <Teams /> : <Team />}
         </TeamContext.Provider>
     )
 };

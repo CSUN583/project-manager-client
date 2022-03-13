@@ -1,17 +1,19 @@
 import {useContext} from 'react';
-import {LayoutContext} from "./Layout";
-import Teams from "./Teams";
-import Projects from "./Projects";
-import Tickets from "./Tickets";
+import {LayoutContext} from "../Layout";
+import ProjectsPage from "./ProjectsPage";
+import Tickets from "../Tickets";
+import TeamsPage from "../team/TeamsPage";
+
 
 const Pages = () => {
+
     const [layout] = useContext(LayoutContext)
 
     switch (layout) {
         case 'teams':
-            return <Teams/>
+            return <TeamsPage/>
         case 'projects':
-            return <Projects/>
+            return <ProjectsPage/>
         case 'tickets':
             return <Tickets/>
         default:

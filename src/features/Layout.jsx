@@ -2,8 +2,7 @@ import {Box, Container, Grid} from "@mui/material";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import {createContext, useState} from "react";
-import * as React from "react";
-import Pages from "./Pages";
+import Pages from "./project/Pages";
 
 export const LayoutContext = createContext([]);
 
