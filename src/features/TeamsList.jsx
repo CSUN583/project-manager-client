@@ -1,14 +1,29 @@
 import {useQuery} from "@apollo/react-hooks";
-import {listTeams} from "../graphql";
-import {Divider, Grid, List, ListItem, ListItemButton, ListItemText, Typography} from "@mui/material";
-import hash from 'object-hash'
+import {CircularProgress, Divider, Grid, List, ListItem, ListItemButton, ListItemText, Typography} from "@mui/material";
+import {gql} from "apollo-boost";
+import {useContext} from "react";
+import {TeamContext} from "./TeamsPage";
 
 
 const TeamsList = () => {
-    const { error, loading, data } = useQuery(listTeams);
+    const [team, setTeam] = useContext(TeamContext)
+    console.log(team, setTeam)
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error :(</p>;
+    const LIST_TEAMS = gql`
+        {
+            teams {
+                id,
+                prefix,
+                name
+            }
+        }
+    `;
+
+    const { error, loading, data } = useQuery(LIST_TEAMS);
+
+    if (loading) return <CircularProgress />
+
+    if (error) return null
 
     return (
         <List>
@@ -35,12 +50,14 @@ const TeamsList = () => {
                 />
             </ListItem>
             <Divider />
-            {data.teams.map( team =>
+            {data.teams.map( t =>
                 <ListItem
-                    key={hash(team)}
+                    key={t.id}
                     disablePadding
                 >
-                    <ListItemButton>
+                    <ListItemButton
+                        onClick={() => setTeam(t.id)}
+                    >
                         <ListItemText
                             primary = {
                                 <Grid
@@ -50,12 +67,12 @@ const TeamsList = () => {
                                 >
                                     <Grid item>
                                         <Typography>
-                                            {team.prefix}
+                                            {t.prefix}
                                         </Typography>
                                     </Grid>
                                     <Grid item>
                                         <Typography>
-                                            {team.name}
+                                            {t.name}
                                         </Typography>
                                     </Grid>
                                 </Grid>

@@ -3,12 +3,12 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import {createContext, useState} from "react";
 import * as React from "react";
-import Pages from "./pages/Pages";
+import Pages from "./Pages";
 
-export const LayoutContext = createContext('');
+export const LayoutContext = createContext([]);
 
 const Layout = () => {
-    const [layout, setLayout] = useState('home')
+    const [layout, setLayout] = useState('teams')
 
     return (
         <LayoutContext.Provider value={[layout, setLayout]}>

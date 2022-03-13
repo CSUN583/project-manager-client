@@ -1,8 +1,10 @@
 import { Container, Grid, Typography} from "@mui/material";
-import TeamsList from "../TeamsList";
-import AddTeamModal from "../AddTeamModal";
+import TeamsList from "./TeamsList";
+import AddTeamModal from "./AddTeamModal";
 
-const TeamsPage = () => {
+
+const Teams = () => {
+
     return (
         <Container >
             <Grid
@@ -34,4 +36,4 @@ const TeamsPage = () => {
     );
 };
 
-export default TeamsPage;
+export default Teams;

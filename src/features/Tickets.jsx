@@ -1,5 +1,5 @@
 
-const TicketsPage = () => {
+const Tickets = () => {
     return (
         <div>
             TicketsPage
@@ -7,4 +7,4 @@ const TicketsPage = () => {
     );
 };
 
-export default TicketsPage;
+export default Tickets;

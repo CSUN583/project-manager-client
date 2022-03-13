@@ -28,10 +28,6 @@ const Navbar = () => {
                     onChange={handleChange}
                 >
                     <BottomNavigationAction
-                        label="Home"
-                        value="home"
-                    />
-                    <BottomNavigationAction
                         label="Teams"
                         value="teams"
                     />
