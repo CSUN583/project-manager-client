@@ -2,18 +2,18 @@ import {
     Box, CircularProgress,
     Container,
     Divider,
-    Grid,
+    Grid, IconButton,
     List,
     ListItem,
     ListItemText,
     Typography
 } from "@mui/material";
 import Button from "@mui/material/Button";
-import AddProjectModal from "./AddProjectModal";
 import {useContext} from "react";
 import {TeamContext} from "./TeamsPage";
 import {useQuery} from "@apollo/react-hooks";
 import {LIST_PROJECT_TICKETS} from "../../gql";
+import {AddCircleOutline} from "@mui/icons-material";
 
 
 const TeamProjectTicketsList = () => {
@@ -87,10 +87,13 @@ const TeamProjectTicketsList = () => {
                                     </Grid>
                                 </Grid>
                                 <Grid item>
-                                    <AddProjectModal />
+                                    <IconButton
+                                        color='primary'
+                                    >
+                                        <AddCircleOutline />
+                                    </IconButton>
                                 </Grid>
                             </Grid>
-
                         }
                     />
                 </ListItem>
