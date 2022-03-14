@@ -3,36 +3,28 @@ import {
     Box,
     CircularProgress, Container,
     Divider,
-    Grid,
+    Grid, IconButton,
     List,
     ListItem,
     ListItemText,
     Typography
 } from "@mui/material";
-import {gql} from "apollo-boost";
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import {TeamContext} from "./TeamsPage";
 import Button from "@mui/material/Button";
+import {LIST_TEAM_MEMBERS} from "../gql";
+import {AddCircleOutline} from "@mui/icons-material";
 
 
-const MembersList = () => {
+const TeamMembersList = () => {
     const [teamId, setTeamId] = useContext(TeamContext)
 
+    const [memberId, setMemberId] = useState(null)
     const handleClick = (id) => {
-        setTeamId(id)
+        setMemberId(id)
     }
 
-    const LIST_TEAMS = gql`
-        {
-            teams {
-                id,
-                prefix,
-                name
-            }
-        }
-    `;
-
-    const { error, loading, data } = useQuery(LIST_TEAMS);
+    const { error, loading, data } = useQuery(LIST_TEAM_MEMBERS, {variables : {id: teamId}});
 
     if (loading) return <CircularProgress />
 
@@ -51,41 +43,54 @@ const MembersList = () => {
                             <Grid
                                 container
                                 wrap='nowrap'
+                                justifyContent='space-between'
                                 alignItems='center'
                             >
                                 <Grid item>
-                                    <Box
-                                        minWidth={150}
+                                    <Grid
+                                        container
+                                        wrap='nowrap'
+                                        alignItems='center'
                                     >
-                                        <Typography
-                                            variant='caption'
-                                        >
-                                            Name
-                                        </Typography>
-                                    </Box>
+                                        <Grid item>
+                                            <Box
+                                                minWidth={125}
+                                            >
+                                                <Typography
+                                                    variant='caption'
+                                                >
+                                                    Name
+                                                </Typography>
+                                            </Box>
+                                        </Grid>
+                                        <Grid item>
+                                            <Box
+                                                minWidth={125}
+                                            >
+                                                <Typography
+                                                    variant='caption'
+                                                >
+                                                    Email
+                                                </Typography>
+                                            </Box>
+                                        </Grid>
+                                    </Grid>
                                 </Grid>
                                 <Grid item>
-                                    <Box
-                                        minWidth={150}
+                                    <IconButton
+                                        color='primary'
                                     >
-                                        <Typography
-                                            variant='caption'
-                                        >
-                                            Email
-                                        </Typography>
-                                    </Box>
-                                </Grid>
-                                <Grid item>
-                                    <Box minWidth={70}/>
+                                        <AddCircleOutline />
+                                    </IconButton>
                                 </Grid>
                             </Grid>
                         }
                     />
                 </ListItem>
                 <Divider />
-                {data?.users?.map( u =>
+                {data?.team?.members?.map( m =>
                     <ListItem
-                        key={u.id}
+                        key={m.id}
                     >
                         <ListItemText
                             primary = {
@@ -93,6 +98,7 @@ const MembersList = () => {
                                     container
                                     wrap='nowrap'
                                     justifyContent='space-between'
+                                    alignItems='center'
                                 >
                                     <Grid item>
                                         <Grid
@@ -101,37 +107,23 @@ const MembersList = () => {
                                         >
                                             <Grid item>
                                                 <Box
-                                                    minWidth={90}
+                                                    minWidth={125}
                                                 >
-                                                    <Typography>
-                                                        {u.prefix}
+                                                    <Typography
+                                                        variant='body2'
+                                                    >
+                                                        {m.name}
                                                     </Typography>
                                                 </Box>
                                             </Grid>
                                             <Grid item>
                                                 <Box
-                                                    minWidth={100}
+                                                    width={125}
                                                 >
-                                                    <Typography>
-                                                        {u.prefix}
-                                                    </Typography>
-                                                </Box>
-                                            </Grid>
-                                            <Grid item>
-                                                <Box
-                                                    minWidth={70}
-                                                >
-                                                    <Typography>
-                                                        {u.prefix}
-                                                    </Typography>
-                                                </Box>
-                                            </Grid>
-                                            <Grid item>
-                                                <Box
-                                                    minWidth={70}
-                                                >
-                                                    <Typography>
-                                                        {u.prefix}
+                                                    <Typography
+                                                        variant='body2'
+                                                    >
+                                                        {m.email}
                                                     </Typography>
                                                 </Box>
                                             </Grid>
@@ -139,7 +131,7 @@ const MembersList = () => {
                                     </Grid>
                                     <Grid item>
                                         <Button
-                                            onClick={() => handleClick(u.id)}
+                                            onClick={() => handleClick(m.id)}
                                         >
                                             View
                                         </Button>
@@ -154,5 +146,5 @@ const MembersList = () => {
     );
 };
 
-export default MembersList;
+export default TeamMembersList;
 

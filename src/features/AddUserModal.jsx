@@ -3,9 +3,10 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import {useState} from "react";
-import {Grid, Paper, TextField} from "@mui/material";
+import {Grid, IconButton, Paper, TextField} from "@mui/material";
 import {useMutation} from "@apollo/react-hooks";
 import {CREATE_USER, LIST_USERS} from "../gql";
+import {AddCircleOutline} from "@mui/icons-material";
 
 const AddUserModal = ({refetch}) => {
     const [open, setOpen] = useState(false);
@@ -32,11 +33,12 @@ const AddUserModal = ({refetch}) => {
 
     return (
         <div>
-            <Button
+            <IconButton
                 onClick={handleOpen}
+                color='primary'
             >
-                Add User
-            </Button>
+                <AddCircleOutline />
+            </IconButton>
             <Modal
                 open={open}
                 onClose={handleClose}

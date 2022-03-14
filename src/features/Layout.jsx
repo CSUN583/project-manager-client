@@ -19,6 +19,7 @@ const Layout = () => {
                     flexDirection='column'
                     justifyContent='space-between'
                     height='100vh'
+                    minWidth={350}
                     py={2}
                 >
                     <Grid

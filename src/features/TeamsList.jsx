@@ -8,18 +8,22 @@ import {
     ListItemText,
     Typography
 } from "@mui/material";
-import {gql} from "apollo-boost";
 import {useContext} from "react";
 import {TeamContext} from "./TeamsPage";
 import Button from "@mui/material/Button";
+import AddTeamModal from "./AddTeamModal";
+import {useQuery} from "@apollo/react-hooks";
+import {LIST_TEAMS} from "../gql";
 
 
-const TeamsList = ({error, loading, data}) => {
+const TeamsList = () => {
     const [teamId, setTeamId] = useContext(TeamContext)
 
     const handleClick = (id) => {
         setTeamId(id)
     }
+
+    const { error, loading, data, refetch } = useQuery(LIST_TEAMS);
 
     if (loading) return <CircularProgress />
 
@@ -33,24 +37,40 @@ const TeamsList = ({error, loading, data}) => {
                         <Grid
                             container
                             wrap='nowrap'
+                            justifyContent='space-between'
+                            alignItems='center'
                         >
                             <Grid item>
-                                <Box
-                                    minWidth={100}
+                                <Grid
+                                    container
+                                    wrap='nowrap'
                                 >
-                                    <Typography
-                                        variant='caption'
-                                    >
-                                        Prefix
-                                    </Typography>
-                                </Box>
+                                    <Grid item>
+                                        <Box
+                                            width={100}
+                                        >
+                                            <Typography
+                                                variant='caption'
+                                            >
+                                                Prefix
+                                            </Typography>
+                                        </Box>
+                                    </Grid>
+                                    <Grid item>
+                                        <Box
+                                            width={150}
+                                        >
+                                            <Typography
+                                                variant='caption'
+                                            >
+                                                Name
+                                            </Typography>
+                                        </Box>
+                                    </Grid>
+                                </Grid>
                             </Grid>
                             <Grid item>
-                                <Typography
-                                    variant='caption'
-                                >
-                                    Name
-                                </Typography>
+                                <AddTeamModal refetch={refetch}/>
                             </Grid>
                         </Grid>
                     }
@@ -67,6 +87,7 @@ const TeamsList = ({error, loading, data}) => {
                                 container
                                 wrap='nowrap'
                                 justifyContent='space-between'
+                                alignItems='center'
                             >
                                 <Grid item>
                                     <Grid
@@ -77,15 +98,23 @@ const TeamsList = ({error, loading, data}) => {
                                             <Box
                                                 width={100}
                                             >
-                                                <Typography>
+                                                <Typography
+                                                    variant='body2'
+                                                >
                                                     {t.prefix}
                                                 </Typography>
                                             </Box>
                                         </Grid>
                                         <Grid item>
-                                            <Typography>
-                                                {t.name}
-                                            </Typography>
+                                            <Box
+                                                width={150}
+                                            >
+                                                <Typography
+                                                    variant='body2'
+                                                >
+                                                    {t.name}
+                                                </Typography>
+                                            </Box>
                                         </Grid>
                                     </Grid>
                                 </Grid>

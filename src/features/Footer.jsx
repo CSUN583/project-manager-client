@@ -3,7 +3,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 
 const Footer = () => {
     return (
-        <Box pb={1}>
+        <Box pt={5} pb={1}>
             <Grid
                 container
                 justifyContent='center'

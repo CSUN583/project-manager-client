@@ -4,6 +4,7 @@ import {gql} from "apollo-boost";
 import {useQuery} from "@apollo/react-hooks";
 import Button from "@mui/material/Button";
 import {UserContext} from "./UsersPage";
+import UserInformation from "./UserInformation";
 
 const User = () => {
     const [userId, setUserId] = useContext(UserContext)
@@ -44,24 +45,23 @@ const User = () => {
                     >
                         <Grid item>
                             <Button
+                                size='small'
                                 onClick={handleBreadcrumChange}
                             >
-                                Users
+                                Users &nbsp;>
                             </Button>
                         </Grid>
                         <Grid item>
-                            <Typography>
-                                > {data.user.name}
+                            <Typography
+                                variant='caption'
+                            >
+                                {data.user.name}
                             </Typography>
                         </Grid>
                     </Grid>
                 </Grid>
                 <Grid item>
-                    <Box ml={1}>
-                        <Typography variant='h3'>
-                            User: {data.user.name}
-                        </Typography>
-                    </Box>
+                    <UserInformation />
                 </Grid>
             </Grid>
         </Container>

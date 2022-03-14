@@ -3,9 +3,10 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import {useState} from "react";
-import {Grid, Paper, TextField} from "@mui/material";
+import {Grid, IconButton, Paper, TextField} from "@mui/material";
 import {gql} from "apollo-boost";
 import {useMutation} from "@apollo/react-hooks";
+import {AddCircleOutline} from "@mui/icons-material";
 
 const AddProjectModal = () => {
     const [open, setOpen] = useState(false);
@@ -36,11 +37,12 @@ const AddProjectModal = () => {
 
     return (
         <div>
-            <Button
+            <IconButton
                 onClick={handleOpen}
+                color='primary'
             >
-                Add Team
-            </Button>
+                <AddCircleOutline />
+            </IconButton>
             <Modal
                 open={open}
                 onClose={handleClose}

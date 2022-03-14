@@ -11,14 +11,19 @@ import {
 import {useContext} from "react";
 import Button from "@mui/material/Button";
 import {UserContext} from "./UsersPage";
+import AddUserModal from "./AddUserModal";
+import {useQuery} from "@apollo/react-hooks";
+import {LIST_USERS} from "../gql";
 
 
-const UsersList = ({error, loading, data}) => {
+const UsersList = () => {
     const [userId, setUserId] = useContext(UserContext)
 
     const handleClick = (id) => {
         setUserId(id)
     }
+
+    const { error, loading, data, refetch } = useQuery(LIST_USERS);
 
     if (loading) return <CircularProgress />
 
@@ -32,24 +37,40 @@ const UsersList = ({error, loading, data}) => {
                         <Grid
                             container
                             wrap='nowrap'
+                            justifyContent='space-between'
+                            alignItems='center'
                         >
                             <Grid item>
-                                <Box
-                                    minWidth={140}
+                                <Grid
+                                    container
+                                    wrap='nowrap'
                                 >
-                                    <Typography
-                                        variant='caption'
-                                    >
-                                        Name
-                                    </Typography>
-                                </Box>
+                                    <Grid item>
+                                        <Box
+                                            width={125}
+                                        >
+                                            <Typography
+                                                variant='caption'
+                                            >
+                                                Name
+                                            </Typography>
+                                        </Box>
+                                    </Grid>
+                                    <Grid item>
+                                        <Box
+                                            width={125}
+                                        >
+                                            <Typography
+                                                variant='caption'
+                                            >
+                                                Email
+                                            </Typography>
+                                        </Box>
+                                    </Grid>
+                                </Grid>
                             </Grid>
                             <Grid item>
-                                <Typography
-                                    variant='caption'
-                                >
-                                    Email
-                                </Typography>
+                                <AddUserModal refetch={refetch}/>
                             </Grid>
                         </Grid>
                     }
@@ -66,6 +87,7 @@ const UsersList = ({error, loading, data}) => {
                                 container
                                 wrap='nowrap'
                                 justifyContent='space-between'
+                                alignItems='center'
                             >
                                 <Grid item>
                                     <Grid
@@ -74,17 +96,25 @@ const UsersList = ({error, loading, data}) => {
                                     >
                                         <Grid item>
                                             <Box
-                                                minWidth={140}
+                                                width={125}
                                             >
-                                                <Typography>
+                                                <Typography
+                                                    variant='body2'
+                                                >
                                                     {u.name}
                                                 </Typography>
                                             </Box>
                                         </Grid>
                                         <Grid item>
-                                            <Typography>
-                                                {u.email}
-                                            </Typography>
+                                            <Box
+                                                width={125}
+                                            >
+                                                <Typography
+                                                    variant='body2'
+                                                >
+                                                    {u.email}
+                                                </Typography>
+                                            </Box>
                                         </Grid>
                                     </Grid>
                                 </Grid>

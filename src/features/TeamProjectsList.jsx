@@ -3,7 +3,7 @@ import {
     Box,
     CircularProgress, Container,
     Divider,
-    Grid,
+    Grid, IconButton,
     List,
     ListItem,
     ListItemText,
@@ -13,6 +13,7 @@ import {useContext, useState} from "react";
 import {TeamContext} from "./TeamsPage";
 import Button from "@mui/material/Button";
 import {LIST_TEAM_PROJECTS} from "../gql";
+import {AddCircleOutline} from "@mui/icons-material";
 
 
 const TeamProjectsList = () => {
@@ -43,56 +44,59 @@ const TeamProjectsList = () => {
                             <Grid
                                 container
                                 wrap='nowrap'
+                                justifyContent='space-between'
                                 alignItems='center'
                             >
                                 <Grid item>
-                                    <Box
-                                        minWidth={90}
+                                    <Grid
+                                        container
+                                        wrap='nowrap'
+                                        alignItems='center'
                                     >
-                                        <Typography
-                                            variant='caption'
-                                        >
-                                            Name
-                                        </Typography>
-                                    </Box>
+                                        <Grid item>
+                                            <Box
+                                                width={130}
+                                            >
+                                                <Typography
+                                                    variant='caption'
+                                                >
+                                                    Name
+                                                </Typography>
+                                            </Box>
+                                        </Grid>
+                                        <Grid item>
+                                            <Box
+                                                width={60}
+                                            >
+                                                <Typography
+                                                    variant='caption'
+                                                >
+                                                    Start
+                                                </Typography>
+                                            </Box>
+                                        </Grid>
+                                        <Grid item>
+                                            <Box
+                                                width={60}
+                                            >
+                                                <Typography
+                                                    variant='caption'
+                                                >
+                                                    End
+                                                </Typography>
+                                            </Box>
+                                        </Grid>
+                                    </Grid>
                                 </Grid>
                                 <Grid item>
-                                    <Box
-                                        minWidth={100}
+                                    <IconButton
+                                        color='primary'
                                     >
-                                        <Typography
-                                            variant='caption'
-                                        >
-                                            Description
-                                        </Typography>
-                                    </Box>
-                                </Grid>
-                                <Grid item>
-                                    <Box
-                                        minWidth={70}
-                                    >
-                                        <Typography
-                                            variant='caption'
-                                        >
-                                            Start<br />Time
-                                        </Typography>
-                                    </Box>
-                                </Grid>
-                                <Grid item>
-                                    <Box
-                                        minWidth={70}
-                                    >
-                                        <Typography
-                                            variant='caption'
-                                        >
-                                            End<br />Time
-                                        </Typography>
-                                    </Box>
-                                </Grid>
-                                <Grid item>
-                                    <Box minWidth={50}/>
+                                        <AddCircleOutline />
+                                    </IconButton>
                                 </Grid>
                             </Grid>
+
                         }
                     />
                 </ListItem>
@@ -107,6 +111,7 @@ const TeamProjectsList = () => {
                                     container
                                     wrap='nowrap'
                                     justifyContent='space-between'
+                                    alignItems='center'
                                 >
                                     <Grid item>
                                         <Grid
@@ -115,36 +120,33 @@ const TeamProjectsList = () => {
                                         >
                                             <Grid item>
                                                 <Box
-                                                    minWidth={90}
+                                                    width={130}
                                                 >
-                                                    <Typography>
+                                                    <Typography
+                                                        variant='body2'
+                                                    >
                                                         {p.name}
                                                     </Typography>
                                                 </Box>
                                             </Grid>
                                             <Grid item>
                                                 <Box
-                                                    minWidth={100}
+                                                    width={60}
                                                 >
-                                                    <Typography>
-                                                        {p.description}
-                                                    </Typography>
-                                                </Box>
-                                            </Grid>
-                                            <Grid item>
-                                                <Box
-                                                    minWidth={70}
-                                                >
-                                                    <Typography>
+                                                    <Typography
+                                                        variant='caption'
+                                                    >
                                                         {p.startTime}
                                                     </Typography>
                                                 </Box>
                                             </Grid>
                                             <Grid item>
                                                 <Box
-                                                    minWidth={70}
+                                                    width={60}
                                                 >
-                                                    <Typography>
+                                                    <Typography
+                                                        variant='caption'
+                                                    >
                                                         {p.endTime}
                                                     </Typography>
                                                 </Box>

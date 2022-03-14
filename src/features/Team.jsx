@@ -3,7 +3,7 @@ import {useContext, useState} from "react";
 import {TeamContext} from "./TeamsPage";
 import {useQuery} from "@apollo/react-hooks";
 import Button from "@mui/material/Button";
-import TeamMembersList from "./MembersList";
+import TeamMembersList from "./TeamMembersList";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import TeamProjectsList from "./TeamProjectsList";
@@ -34,6 +34,7 @@ const Team = () => {
         >
             <Grid
                 container
+                direction='column'
             >
                 <Grid item>
                     <Grid
@@ -47,14 +48,17 @@ const Team = () => {
                             >
                                 <Grid item>
                                     <Button
+                                        size='small'
                                         onClick={handleBreadcrumChange}
                                     >
-                                        Teams
+                                        Teams &nbsp;>
                                     </Button>
                                 </Grid>
                                 <Grid item>
-                                    <Typography>
-                                        > {data.team.prefix}
+                                    <Typography
+                                        variant='caption'
+                                    >
+                                        {data.team.prefix}
                                     </Typography>
                                 </Grid>
                             </Grid>
@@ -64,12 +68,12 @@ const Team = () => {
                                 container
                                 wrap='nowrap'
                                 alignItems='center'
-                                spacing={3}
+                                justifyContent='space-between'
                             >
                                 <Grid item>
                                     <Box ml={1}>
-                                        <Typography variant='h4'>
-                                            Team: {data.team.prefix}
+                                        <Typography variant='h5'>
+                                            Team:&nbsp;{data.team.prefix}
                                         </Typography>
                                     </Box>
                                 </Grid>

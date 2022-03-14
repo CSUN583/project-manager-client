@@ -18,7 +18,7 @@ const Navbar = () => {
             container
             wrap='nowrap'
             alignItems='center'
-            justifyContent='center'
+            justifyContent='space-between'
             spacing={3}
         >
             <Grid item>
