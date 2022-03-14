@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import Layout from "./features/Layout";
+import {ThemeProvider} from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import lightTheme from "./features/theme/theme";
+import {createContext, useState} from "react";
+import { ApolloProvider } from '@apollo/react-hooks';
+import {Apollo} from "./apollo";
+
+export const ThemeContext = createContext([]);
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [theme, setTheme] = useState(lightTheme)
+
+    return (
+        <ApolloProvider client={Apollo}>
+            <ThemeProvider theme={theme}>
+                <CssBaseline />
+                <ThemeContext.Provider value={[theme, setTheme]}>
+                    <Layout />
+                </ThemeContext.Provider>
+            </ThemeProvider>
+        </ApolloProvider>
+    );
 }
 
 export default App;
