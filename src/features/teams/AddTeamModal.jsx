@@ -5,30 +5,30 @@ import Modal from '@mui/material/Modal';
 import {useState} from "react";
 import {Grid, IconButton, Paper, TextField} from "@mui/material";
 import {useMutation} from "@apollo/react-hooks";
-import {CREATE_USER, LIST_USERS} from "../gql";
+import {CREATE_TEAM} from "../../gql";
 import {AddCircleOutline} from "@mui/icons-material";
 
-const AddUserModal = ({refetch}) => {
+const AddTeamModal = ({refetch}) => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const [userName, setUserName] = useState('')
-    const [userEmail, setUserEmail] = useState('')
+    const [teamName, setTeamName] = useState('')
+    const [teamPrefix, setTeamPrefix] = useState('')
 
-    const [createUser] = useMutation(CREATE_USER)
+    const [createTeam] = useMutation(CREATE_TEAM)
 
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        createUser({
+        createTeam({
             variables: {
-                name: userName,
-                email: userEmail,
+                name: teamName,
+                prefix: teamPrefix,
             }
         })
-        .then( () => refetch())
-        .finally( () => handleClose())
+        .then(r => refetch())
+        .finally(() => handleClose())
     }
 
     return (
@@ -56,30 +56,34 @@ const AddUserModal = ({refetch}) => {
                                 <Grid item>
                                     <Typography
                                         id="modal-modal-title"
-                                        variant="h4"
-                                        component="h4"
+                                        variant="h5"
+                                        component="h5"
                                     >
-                                        New User
+                                        New Team
                                     </Typography>
                                 </Grid>
                                 <Grid item>
                                     <TextField
                                         required
-                                        id="text-field-user-name"
-                                        label="Name"
+                                        autoComplete='off'
+                                        size='small'
+                                        id="text-field-team-prefix"
+                                        label="Prefix"
                                         variant='standard'
-                                        value={userName}
-                                        onChange={e => setUserName(e.target.value)}
+                                        value={teamPrefix}
+                                        onChange={e => setTeamPrefix(e.target.value)}
                                     />
                                 </Grid>
                                 <Grid item>
                                     <TextField
                                         required
-                                        id="text-field-user-email"
-                                        label="Email"
+                                        autoComplete='off'
+                                        size='small'
+                                        id="text-field-team-name"
+                                        label="Name"
                                         variant='standard'
-                                        value={userEmail}
-                                        onChange={e => setUserEmail(e.target.value)}
+                                        value={teamName}
+                                        onChange={e => setTeamName(e.target.value)}
                                     />
                                 </Grid>
                                 <Grid item>
@@ -100,4 +104,4 @@ const AddUserModal = ({refetch}) => {
     );
 }
 
-export default AddUserModal
+export default AddTeamModal

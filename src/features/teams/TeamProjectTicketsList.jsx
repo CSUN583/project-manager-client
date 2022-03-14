@@ -1,30 +1,29 @@
-import {useQuery} from "@apollo/react-hooks";
 import {
-    Box,
-    CircularProgress, Container,
+    Box, CircularProgress,
+    Container,
     Divider,
-    Grid, IconButton,
+    Grid,
     List,
     ListItem,
     ListItemText,
     Typography
 } from "@mui/material";
-import {useContext, useState} from "react";
-import {TeamContext} from "./TeamsPage";
 import Button from "@mui/material/Button";
-import {LIST_TEAM_MEMBERS} from "../gql";
-import {AddCircleOutline} from "@mui/icons-material";
+import AddProjectModal from "./AddProjectModal";
+import {useContext} from "react";
+import {TeamContext} from "./TeamsPage";
+import {useQuery} from "@apollo/react-hooks";
+import {LIST_PROJECT_TICKETS} from "../../gql";
 
 
-const TeamMembersList = () => {
-    const [teamId, setTeamId] = useContext(TeamContext)
+const TeamProjectTicketsList = () => {
+    const {teamProjectId, setTeamTicketId} = useContext(TeamContext)
 
-    const [memberId, setMemberId] = useState(null)
     const handleClick = (id) => {
-        setMemberId(id)
+        setTeamTicketId(id)
     }
 
-    const { error, loading, data } = useQuery(LIST_TEAM_MEMBERS, {variables : {id: teamId}});
+    const { error, loading, data } = useQuery(LIST_PROJECT_TICKETS, {variables : {id: teamProjectId}});
 
     if (loading) return <CircularProgress />
 
@@ -54,7 +53,7 @@ const TeamMembersList = () => {
                                     >
                                         <Grid item>
                                             <Box
-                                                minWidth={125}
+                                                width={125}
                                             >
                                                 <Typography
                                                     variant='caption'
@@ -65,32 +64,40 @@ const TeamMembersList = () => {
                                         </Grid>
                                         <Grid item>
                                             <Box
-                                                minWidth={125}
+                                                width={75}
                                             >
                                                 <Typography
                                                     variant='caption'
                                                 >
-                                                    Email
+                                                    Points
+                                                </Typography>
+                                            </Box>
+                                        </Grid>
+                                        <Grid item>
+                                            <Box
+                                                width={75}
+                                            >
+                                                <Typography
+                                                    variant='caption'
+                                                >
+                                                    Status
                                                 </Typography>
                                             </Box>
                                         </Grid>
                                     </Grid>
                                 </Grid>
                                 <Grid item>
-                                    <IconButton
-                                        color='primary'
-                                    >
-                                        <AddCircleOutline />
-                                    </IconButton>
+                                    <AddProjectModal />
                                 </Grid>
                             </Grid>
+
                         }
                     />
                 </ListItem>
                 <Divider />
-                {data?.team?.members?.map( m =>
+                {data?.project?.tickets?.map( t =>
                     <ListItem
-                        key={m.id}
+                        key={t.id}
                     >
                         <ListItemText
                             primary = {
@@ -107,23 +114,34 @@ const TeamMembersList = () => {
                                         >
                                             <Grid item>
                                                 <Box
-                                                    minWidth={125}
-                                                >
-                                                    <Typography
-                                                        variant='body2'
-                                                    >
-                                                        {m.name}
-                                                    </Typography>
-                                                </Box>
-                                            </Grid>
-                                            <Grid item>
-                                                <Box
                                                     width={125}
                                                 >
                                                     <Typography
                                                         variant='body2'
                                                     >
-                                                        {m.email}
+                                                        {t.name}
+                                                    </Typography>
+                                                </Box>
+                                            </Grid>
+                                            <Grid item>
+                                                <Box
+                                                    width={75}
+                                                >
+                                                    <Typography
+                                                        variant='caption'
+                                                    >
+                                                        {t.point}
+                                                    </Typography>
+                                                </Box>
+                                            </Grid>
+                                            <Grid item>
+                                                <Box
+                                                    width={75}
+                                                >
+                                                    <Typography
+                                                        variant='caption'
+                                                    >
+                                                        {t.status}
                                                     </Typography>
                                                 </Box>
                                             </Grid>
@@ -131,7 +149,8 @@ const TeamMembersList = () => {
                                     </Grid>
                                     <Grid item>
                                         <Button
-                                            onClick={() => handleClick(m.id)}
+                                            onClick={() => handleClick(t.id)}
+                                            size='small'
                                         >
                                             View
                                         </Button>
@@ -143,8 +162,7 @@ const TeamMembersList = () => {
                 )}
             </List>
         </Container>
-    );
+    )
 };
 
-export default TeamMembersList;
-
+export default TeamProjectTicketsList;

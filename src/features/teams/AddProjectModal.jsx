@@ -4,36 +4,29 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import {useState} from "react";
 import {Grid, IconButton, Paper, TextField} from "@mui/material";
-import {gql} from "apollo-boost";
-import {useMutation} from "@apollo/react-hooks";
 import {AddCircleOutline} from "@mui/icons-material";
+import MobileDatePicker from '@mui/lab/MobileDatePicker';
+import {LocalizationProvider} from "@mui/lab";
+import DateAdapter from '@mui/lab/AdapterDateFns';
 
-const AddProjectModal = () => {
+
+const AddProjectModal = ({refetch}) => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const [teamName, setTeamName] = useState('')
-    const [teamPrefix, setTeamPrefix] = useState('')
-
-    const CREATE_TEAM = gql`
-        mutation CreateTeam($name: String!, $prefix: String!) {
-            createTeam(input: { name: $name, prefix: $prefix }) {id} 
-        }
-    `
-
-    const [createTeam] = useMutation(CREATE_TEAM)
+    const [projectName, setProjectName] = useState('')
+    const [projectDescription, setProjectDescription] = useState('')
+    const [projectEndDate, setProjectEndDate] = useState('')
 
     const handleSubmit = (e) => {
         e.preventDefault()
-
-        createTeam({
-            variables: {
-                name: teamName,
-                prefix: teamPrefix,
-            }
-        }).then(r => {})
+        handleClose()
     }
+
+    const handleChange = (newValue) => {
+        setProjectEndDate(newValue);
+    };
 
     return (
         <div>
@@ -60,30 +53,47 @@ const AddProjectModal = () => {
                                 <Grid item>
                                     <Typography
                                         id="modal-modal-title"
-                                        variant="h4"
-                                        component="h4"
+                                        variant="h5"
+                                        component="h5"
                                     >
-                                        New Team
+                                        New Project
                                     </Typography>
                                 </Grid>
                                 <Grid item>
                                     <TextField
                                         required
-                                        id="text-field-team-prefix"
-                                        label="Prefix"
+                                        autoComplete='off'
+                                        size='small'
+                                        id="text-field-project-name"
+                                        label="Name"
                                         variant='standard'
-                                        value={teamPrefix}
-                                        onChange={e => setTeamPrefix(e.target.value)}
+                                        value={projectName}
+                                        onChange={e => setProjectName(e.target.value)}
                                     />
+                                </Grid>
+                                <Grid item>
+                                    <LocalizationProvider dateAdapter={DateAdapter}>
+                                        <MobileDatePicker
+                                            label="End Date"
+                                            inputFormat="MM/dd/yyyy"
+                                            value={projectEndDate}
+                                            onChange={handleChange}
+                                            renderInput={(params) => <TextField {...params} />}
+                                        />
+                                    </LocalizationProvider>
                                 </Grid>
                                 <Grid item>
                                     <TextField
                                         required
-                                        id="text-field-team-name"
-                                        label="Name"
-                                        variant='standard'
-                                        value={teamName}
-                                        onChange={e => setTeamName(e.target.value)}
+                                        autoComplete='off'
+                                        size='small'
+                                        multiline
+                                        rows={4}
+                                        id="text-field-project-description"
+                                        label="Description"
+                                        variant='outlined'
+                                        value={projectDescription}
+                                        onChange={e => setProjectDescription(e.target.value)}
                                     />
                                 </Grid>
                                 <Grid item>

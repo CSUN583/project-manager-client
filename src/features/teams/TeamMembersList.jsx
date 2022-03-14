@@ -9,23 +9,21 @@ import {
     ListItemText,
     Typography
 } from "@mui/material";
-import {useContext, useState} from "react";
+import {useContext} from "react";
 import {TeamContext} from "./TeamsPage";
 import Button from "@mui/material/Button";
-import {LIST_TEAM_PROJECTS} from "../gql";
+import {LIST_TEAM_MEMBERS} from "../../gql";
 import {AddCircleOutline} from "@mui/icons-material";
 
 
-const TeamProjectsList = () => {
-    const [teamId, setTeamId] = useContext(TeamContext)
-
-    const [projectId, setProectId] = useState(null)
+const TeamMembersList = () => {
+    const {teamId, setTeamMemberId} = useContext(TeamContext)
 
     const handleClick = (id) => {
-        setProectId(id)
+        setTeamMemberId(id)
     }
 
-    const { error, loading, data } = useQuery(LIST_TEAM_PROJECTS, {variables : {id: teamId}});
+    const { error, loading, data } = useQuery(LIST_TEAM_MEMBERS, {variables : {id: teamId}});
 
     if (loading) return <CircularProgress />
 
@@ -55,7 +53,7 @@ const TeamProjectsList = () => {
                                     >
                                         <Grid item>
                                             <Box
-                                                width={130}
+                                                minWidth={125}
                                             >
                                                 <Typography
                                                     variant='caption'
@@ -66,23 +64,12 @@ const TeamProjectsList = () => {
                                         </Grid>
                                         <Grid item>
                                             <Box
-                                                width={60}
+                                                minWidth={125}
                                             >
                                                 <Typography
                                                     variant='caption'
                                                 >
-                                                    Start
-                                                </Typography>
-                                            </Box>
-                                        </Grid>
-                                        <Grid item>
-                                            <Box
-                                                width={60}
-                                            >
-                                                <Typography
-                                                    variant='caption'
-                                                >
-                                                    End
+                                                    Email
                                                 </Typography>
                                             </Box>
                                         </Grid>
@@ -96,14 +83,13 @@ const TeamProjectsList = () => {
                                     </IconButton>
                                 </Grid>
                             </Grid>
-
                         }
                     />
                 </ListItem>
                 <Divider />
-                {data?.team?.projects?.map( p =>
+                {data?.team?.members?.map( m =>
                     <ListItem
-                        key={p.id}
+                        key={m.id}
                     >
                         <ListItemText
                             primary = {
@@ -120,34 +106,23 @@ const TeamProjectsList = () => {
                                         >
                                             <Grid item>
                                                 <Box
-                                                    width={130}
+                                                    minWidth={125}
                                                 >
                                                     <Typography
                                                         variant='body2'
                                                     >
-                                                        {p.name}
+                                                        {m.name}
                                                     </Typography>
                                                 </Box>
                                             </Grid>
                                             <Grid item>
                                                 <Box
-                                                    width={60}
+                                                    width={125}
                                                 >
                                                     <Typography
-                                                        variant='caption'
+                                                        variant='body2'
                                                     >
-                                                        {p.startTime}
-                                                    </Typography>
-                                                </Box>
-                                            </Grid>
-                                            <Grid item>
-                                                <Box
-                                                    width={60}
-                                                >
-                                                    <Typography
-                                                        variant='caption'
-                                                    >
-                                                        {p.endTime}
+                                                        {m.email}
                                                     </Typography>
                                                 </Box>
                                             </Grid>
@@ -155,7 +130,7 @@ const TeamProjectsList = () => {
                                     </Grid>
                                     <Grid item>
                                         <Button
-                                            onClick={() => handleClick(p.id)}
+                                            onClick={() => handleClick(m.id)}
                                         >
                                             View
                                         </Button>
@@ -170,4 +145,5 @@ const TeamProjectsList = () => {
     );
 };
 
-export default TeamProjectsList;
+export default TeamMembersList;
+

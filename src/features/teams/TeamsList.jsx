@@ -13,11 +13,11 @@ import {TeamContext} from "./TeamsPage";
 import Button from "@mui/material/Button";
 import AddTeamModal from "./AddTeamModal";
 import {useQuery} from "@apollo/react-hooks";
-import {LIST_TEAMS} from "../gql";
+import {LIST_TEAMS} from "../../gql";
 
 
 const TeamsList = () => {
-    const [teamId, setTeamId] = useContext(TeamContext)
+    const {setTeamId} = useContext(TeamContext)
 
     const handleClick = (id) => {
         setTeamId(id)
@@ -121,6 +121,7 @@ const TeamsList = () => {
                                 <Grid item>
                                     <Button
                                         onClick={() => handleClick(t.id)}
+                                        size='small'
                                     >
                                         View
                                     </Button>

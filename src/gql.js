@@ -60,3 +60,44 @@ export const LIST_TEAM_MEMBERS = gql`
             },
         }
     }`
+
+export const GET_PROJECT_INFO = gql`
+    query getProjectInfo($id: ID!){
+        project(id: $id) {
+            name,
+            description,
+            startTime,
+            endTime,
+        }
+    }`
+
+export const LIST_PROJECT_TICKETS = gql`
+    query listProjectTickets($id: ID!){
+        project(id: $id) {
+            tickets {
+                id,
+                name,
+                description,
+                point,
+                status,
+            }
+        }
+    }`
+
+export const GET_TICKET = gql`
+    query getTicket($id: ID!){
+        ticket(id: $id) {
+            name,
+            description,
+            point,
+            status,
+        }
+    }`
+
+export const GET_USER = gql`
+    query getUser($id: ID!){
+        user(id: $id) {
+            name,
+            email,
+        }
+    }`

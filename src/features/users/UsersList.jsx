@@ -13,7 +13,7 @@ import Button from "@mui/material/Button";
 import {UserContext} from "./UsersPage";
 import AddUserModal from "./AddUserModal";
 import {useQuery} from "@apollo/react-hooks";
-import {LIST_USERS} from "../gql";
+import {LIST_USERS} from "../../gql";
 
 
 const UsersList = () => {

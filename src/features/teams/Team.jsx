@@ -6,11 +6,11 @@ import Button from "@mui/material/Button";
 import TeamMembersList from "./TeamMembersList";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import BottomNavigation from "@mui/material/BottomNavigation";
+import {GET_TEAM_NAME} from "../../gql";
 import TeamProjectsList from "./TeamProjectsList";
-import {GET_TEAM_NAME} from "../gql";
 
 const Team = () => {
-    const [teamId, setTeamId] = useContext(TeamContext)
+    const {teamId, setTeamId} = useContext(TeamContext)
 
     const [navigation, setNavigation] = useState('projects')
 
@@ -56,7 +56,7 @@ const Team = () => {
                                 </Grid>
                                 <Grid item>
                                     <Typography
-                                        variant='caption'
+                                        variant='body2'
                                     >
                                         {data.team.prefix}
                                     </Typography>

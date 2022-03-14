@@ -1,7 +1,7 @@
 import {useContext} from 'react';
 import {LayoutContext} from "./Layout";
-import UsersPage from "./UsersPage";
-import TeamsPage from "./TeamsPage";
+import UsersPage from "./users/UsersPage";
+import TeamsPage from "./teams/TeamsPage";
 
 
 const Pages = () => {
