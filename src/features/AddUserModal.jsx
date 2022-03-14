@@ -4,18 +4,30 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import {useState} from "react";
 import {Grid, Paper, TextField} from "@mui/material";
-import {gql} from "apollo-boost";
 import {useMutation} from "@apollo/react-hooks";
+import {CREATE_USER, LIST_USERS} from "../gql";
 
-const AddTeamModal = () => {
+const AddUserModal = ({refetch}) => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+    const [userName, setUserName] = useState('')
+    const [userEmail, setUserEmail] = useState('')
+
+    const [createUser] = useMutation(CREATE_USER)
 
     const handleSubmit = (e) => {
         e.preventDefault()
 
+        createUser({
+            variables: {
+                name: userName,
+                email: userEmail,
+            }
+        })
+        .then( () => refetch())
+        .finally( () => handleClose())
     }
 
     return (
@@ -23,7 +35,7 @@ const AddTeamModal = () => {
             <Button
                 onClick={handleOpen}
             >
-                Add Project
+                Add User
             </Button>
             <Modal
                 open={open}
@@ -45,23 +57,27 @@ const AddTeamModal = () => {
                                         variant="h4"
                                         component="h4"
                                     >
-                                        New Project
+                                        New User
                                     </Typography>
                                 </Grid>
                                 <Grid item>
                                     <TextField
                                         required
-                                        id="text-field-project-prefix"
-                                        label="Prefix"
+                                        id="text-field-user-name"
+                                        label="Name"
                                         variant='standard'
+                                        value={userName}
+                                        onChange={e => setUserName(e.target.value)}
                                     />
                                 </Grid>
                                 <Grid item>
                                     <TextField
                                         required
-                                        id="text-field-project-name"
-                                        label="Name"
+                                        id="text-field-user-email"
+                                        label="Email"
                                         variant='standard'
+                                        value={userEmail}
+                                        onChange={e => setUserEmail(e.target.value)}
                                     />
                                 </Grid>
                                 <Grid item>
@@ -82,4 +98,4 @@ const AddTeamModal = () => {
     );
 }
 
-export default AddTeamModal
+export default AddUserModal

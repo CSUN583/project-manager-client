@@ -7,7 +7,7 @@ import {Grid, Paper, TextField} from "@mui/material";
 import {gql} from "apollo-boost";
 import {useMutation} from "@apollo/react-hooks";
 
-const AddTeamModal = () => {
+const AddProjectModal = () => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -102,4 +102,4 @@ const AddTeamModal = () => {
     );
 }
 
-export default AddTeamModal
+export default AddProjectModal

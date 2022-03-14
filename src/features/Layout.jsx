@@ -2,7 +2,7 @@ import {Box, Container, Grid} from "@mui/material";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import {createContext, useState} from "react";
-import Pages from "./project/Pages";
+import Pages from "./Pages";
 
 export const LayoutContext = createContext([]);
 
@@ -24,7 +24,7 @@ const Layout = () => {
                     <Grid
                         container
                         direction='column'
-                        spacing = {5}
+                        spacing = {2}
                     >
                         <Grid item>
                             <Navbar />

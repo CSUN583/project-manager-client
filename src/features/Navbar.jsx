@@ -1,7 +1,7 @@
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import ThemeToggle from "./theme/ThemeToggle";
-import {Grid} from "@mui/material";
+import {Grid, Typography} from "@mui/material";
 import {useContext} from "react";
 import {LayoutContext} from "./Layout";
 
@@ -19,8 +19,16 @@ const Navbar = () => {
             wrap='nowrap'
             alignItems='center'
             justifyContent='center'
-            spacing={2}
+            spacing={3}
         >
+            <Grid item>
+                <Typography
+                    variant='body2'
+                    sx={{fontWeight: 'bold'}}
+                >
+                    Project&nbsp;Manager
+                </Typography>
+            </Grid>
             <Grid item>
                 <BottomNavigation
                     showLabels
@@ -32,12 +40,8 @@ const Navbar = () => {
                         value="teams"
                     />
                     <BottomNavigationAction
-                        label="Projects"
-                        value="projects"
-                    />
-                    <BottomNavigationAction
-                        label="Tickets"
-                        value="tickets"
+                        label="Users"
+                        value="users"
                     />
                 </BottomNavigation>
             </Grid>

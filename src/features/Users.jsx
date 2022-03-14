@@ -1,12 +1,17 @@
 import { Container, Grid, Typography} from "@mui/material";
-import TeamsList from "./TeamsList";
-import AddTeamModal from "./AddTeamModal";
+import AddUserModal from "./AddUserModal";
+import UsersList from "./UsersList";
+import {useQuery} from "@apollo/react-hooks";
+import {LIST_USERS} from "../gql";
 
 
-const Teams = () => {
+const Users = () => {
+    const { error, loading, data, refetch } = useQuery(LIST_USERS);
 
     return (
-        <Container >
+        <Container
+            disableGutters
+        >
             <Grid
                 container
                 direction='column'
@@ -19,21 +24,23 @@ const Teams = () => {
                         justifyContent='space-between'
                     >
                         <Grid item>
-                            <Typography variant='h2'>
-                                Teams
+                            <Typography
+                                variant='h3'
+                            >
+                                Users
                             </Typography>
                         </Grid>
                         <Grid item>
-                            <AddTeamModal />
+                            <AddUserModal refetch={refetch}/>
                         </Grid>
                     </Grid>
                 </Grid>
                 <Grid item>
-                    <TeamsList />
+                    <UsersList error={error} loading={loading} data={data}/>
                 </Grid>
             </Grid>
         </Container>
     );
 };
 
-export default Teams;
+export default Users;
