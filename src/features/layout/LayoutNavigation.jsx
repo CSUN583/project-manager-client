@@ -1,21 +1,21 @@
 import {useContext} from 'react';
 import {LayoutContext} from "./Layout";
-import UsersPage from "./users/UsersPage";
-import TeamsPage from "./teams/TeamsPage";
+import UsersContext from "../users/UsersContext";
+import TeamsContext from "../teams/TeamsContext";
 
 
-const Pages = () => {
+const LayoutNavigation = () => {
 
     const [layout] = useContext(LayoutContext)
 
     switch (layout) {
         case 'teams':
-            return <TeamsPage/>
+            return <TeamsContext/>
         case 'users':
-            return <UsersPage/>
+            return <UsersContext/>
         default:
             return null
     }
 };
 
-export default Pages;
+export default LayoutNavigation;

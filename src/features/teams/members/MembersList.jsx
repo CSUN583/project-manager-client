@@ -1,29 +1,31 @@
+import {useQuery} from "@apollo/react-hooks";
 import {
     Box,
+    CircularProgress, Container,
     Divider,
-    Grid,
+    Grid, IconButton,
+    List,
     ListItem,
     ListItemText,
     Typography
 } from "@mui/material";
 import {useContext} from "react";
-import {TeamContext} from "./TeamsContext";
+import {TeamContext} from "../TeamsContext";
 import Button from "@mui/material/Button";
-import TeamModal from "./TeamModal";
-import {useQuery} from "@apollo/react-hooks";
-import {LIST_TEAMS} from "../../gql";
-import LoadingCircle from "../components/LoadingCircle";
-import ListContainer from "../components/ListContainer";
+import {LIST_TEAM_MEMBERS} from "../../../gql";
+import LoadingCircle from "../../components/LoadingCircle";
+import MemberModal from "./MemberModal";
+import ListContainer from "../../components/ListContainer";
 
 
-const TeamsList = () => {
-    const {setTeamId} = useContext(TeamContext)
+const MembersList = () => {
+    const {teamId, setTeamMemberId} = useContext(TeamContext)
 
     const handleClick = (id) => {
-        setTeamId(id)
+        setTeamMemberId(id)
     }
 
-    const { error, loading, data, refetch } = useQuery(LIST_TEAMS);
+    const { error, loading, data } = useQuery(LIST_TEAM_MEMBERS, {variables : {id: teamId}});
 
     if (loading) return <LoadingCircle />
 
@@ -33,7 +35,7 @@ const TeamsList = () => {
         <ListContainer>
             <ListItem>
                 <ListItemText
-                    primary ={
+                    primary={
                         <Grid
                             container
                             wrap='nowrap'
@@ -44,21 +46,11 @@ const TeamsList = () => {
                                 <Grid
                                     container
                                     wrap='nowrap'
+                                    alignItems='center'
                                 >
                                     <Grid item>
                                         <Box
-                                            width={100}
-                                        >
-                                            <Typography
-                                                variant='caption'
-                                            >
-                                                Prefix
-                                            </Typography>
-                                        </Box>
-                                    </Grid>
-                                    <Grid item>
-                                        <Box
-                                            width={150}
+                                            minWidth={125}
                                         >
                                             <Typography
                                                 variant='caption'
@@ -67,19 +59,30 @@ const TeamsList = () => {
                                             </Typography>
                                         </Box>
                                     </Grid>
+                                    <Grid item>
+                                        <Box
+                                            minWidth={125}
+                                        >
+                                            <Typography
+                                                variant='caption'
+                                            >
+                                                Email
+                                            </Typography>
+                                        </Box>
+                                    </Grid>
                                 </Grid>
                             </Grid>
                             <Grid item>
-                                <TeamModal refetch={refetch}/>
+                                <MemberModal />
                             </Grid>
                         </Grid>
                     }
                 />
             </ListItem>
             <Divider />
-            {data?.teams?.map( t =>
+            {data?.team?.members?.map( m =>
                 <ListItem
-                    key={t.id}
+                    key={m.id}
                 >
                     <ListItemText
                         primary = {
@@ -96,23 +99,23 @@ const TeamsList = () => {
                                     >
                                         <Grid item>
                                             <Box
-                                                width={100}
+                                                minWidth={125}
                                             >
                                                 <Typography
                                                     variant='body2'
                                                 >
-                                                    {t.prefix}
+                                                    {m.name}
                                                 </Typography>
                                             </Box>
                                         </Grid>
                                         <Grid item>
                                             <Box
-                                                width={150}
+                                                width={125}
                                             >
                                                 <Typography
                                                     variant='body2'
                                                 >
-                                                    {t.name}
+                                                    {m.email}
                                                 </Typography>
                                             </Box>
                                         </Grid>
@@ -120,8 +123,7 @@ const TeamsList = () => {
                                 </Grid>
                                 <Grid item>
                                     <Button
-                                        onClick={() => handleClick(t.id)}
-                                        size='small'
+                                        onClick={() => handleClick(m.id)}
                                     >
                                         View
                                     </Button>
@@ -135,4 +137,5 @@ const TeamsList = () => {
     );
 };
 
-export default TeamsList;
+export default MembersList;
+

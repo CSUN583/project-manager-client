@@ -1,29 +1,31 @@
+import {useQuery} from "@apollo/react-hooks";
 import {
     Box,
+    CircularProgress, Container,
     Divider,
-    Grid,
+    Grid, IconButton,
+    List,
     ListItem,
     ListItemText,
     Typography
 } from "@mui/material";
 import {useContext} from "react";
-import {TeamContext} from "./TeamsContext";
+import {TeamContext} from "../TeamsContext";
 import Button from "@mui/material/Button";
-import TeamModal from "./TeamModal";
-import {useQuery} from "@apollo/react-hooks";
-import {LIST_TEAMS} from "../../gql";
-import LoadingCircle from "../components/LoadingCircle";
-import ListContainer from "../components/ListContainer";
+import {LIST_TEAM_PROJECTS} from "../../../gql";
+import ProjectModal from "./ProjectModal";
+import LoadingCircle from "../../components/LoadingCircle";
+import ListContainer from "../../components/ListContainer";
 
 
-const TeamsList = () => {
-    const {setTeamId} = useContext(TeamContext)
+const ProjectsList = () => {
+    const {teamId, setTeamProjectId} = useContext(TeamContext)
 
     const handleClick = (id) => {
-        setTeamId(id)
+        setTeamProjectId(id)
     }
 
-    const { error, loading, data, refetch } = useQuery(LIST_TEAMS);
+    const { error, loading, data } = useQuery(LIST_TEAM_PROJECTS, {variables : {id: teamId}});
 
     if (loading) return <LoadingCircle />
 
@@ -44,21 +46,11 @@ const TeamsList = () => {
                                 <Grid
                                     container
                                     wrap='nowrap'
+                                    alignItems='center'
                                 >
                                     <Grid item>
                                         <Box
-                                            width={100}
-                                        >
-                                            <Typography
-                                                variant='caption'
-                                            >
-                                                Prefix
-                                            </Typography>
-                                        </Box>
-                                    </Grid>
-                                    <Grid item>
-                                        <Box
-                                            width={150}
+                                            width={130}
                                         >
                                             <Typography
                                                 variant='caption'
@@ -67,19 +59,42 @@ const TeamsList = () => {
                                             </Typography>
                                         </Box>
                                     </Grid>
+                                    <Grid item>
+                                        <Box
+                                            width={60}
+                                        >
+                                            <Typography
+                                                variant='caption'
+                                            >
+                                                Start
+                                            </Typography>
+                                        </Box>
+                                    </Grid>
+                                    <Grid item>
+                                        <Box
+                                            width={60}
+                                        >
+                                            <Typography
+                                                variant='caption'
+                                            >
+                                                End
+                                            </Typography>
+                                        </Box>
+                                    </Grid>
                                 </Grid>
                             </Grid>
                             <Grid item>
-                                <TeamModal refetch={refetch}/>
+                                <ProjectModal />
                             </Grid>
                         </Grid>
+
                     }
                 />
             </ListItem>
             <Divider />
-            {data?.teams?.map( t =>
+            {data?.team?.projects?.map( p =>
                 <ListItem
-                    key={t.id}
+                    key={p.id}
                 >
                     <ListItemText
                         primary = {
@@ -96,23 +111,34 @@ const TeamsList = () => {
                                     >
                                         <Grid item>
                                             <Box
-                                                width={100}
+                                                width={130}
                                             >
                                                 <Typography
                                                     variant='body2'
                                                 >
-                                                    {t.prefix}
+                                                    {p.name}
                                                 </Typography>
                                             </Box>
                                         </Grid>
                                         <Grid item>
                                             <Box
-                                                width={150}
+                                                width={60}
                                             >
                                                 <Typography
-                                                    variant='body2'
+                                                    variant='caption'
                                                 >
-                                                    {t.name}
+                                                    {p.startTime}
+                                                </Typography>
+                                            </Box>
+                                        </Grid>
+                                        <Grid item>
+                                            <Box
+                                                width={60}
+                                            >
+                                                <Typography
+                                                    variant='caption'
+                                                >
+                                                    {p.endTime}
                                                 </Typography>
                                             </Box>
                                         </Grid>
@@ -120,7 +146,7 @@ const TeamsList = () => {
                                 </Grid>
                                 <Grid item>
                                     <Button
-                                        onClick={() => handleClick(t.id)}
+                                        onClick={() => handleClick(p.id)}
                                         size='small'
                                     >
                                         View
@@ -135,4 +161,4 @@ const TeamsList = () => {
     );
 };
 
-export default TeamsList;
+export default ProjectsList;

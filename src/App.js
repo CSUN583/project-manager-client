@@ -1,4 +1,4 @@
-import Layout from "./features/Layout";
+import Layout from "./features/layout/Layout";
 import {ThemeProvider} from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import lightTheme from "./features/theme/theme";

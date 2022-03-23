@@ -1,6 +1,6 @@
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import ThemeToggle from "./theme/ThemeToggle";
+import ThemeToggle from "../theme/ThemeToggle";
 import {Grid, Typography} from "@mui/material";
 import {useContext} from "react";
 import {LayoutContext} from "./Layout";
@@ -19,14 +19,14 @@ const Navbar = () => {
             wrap='nowrap'
             alignItems='center'
             justifyContent='space-between'
-            spacing={3}
         >
             <Grid item>
                 <Typography
-                    variant='body2'
+                    variant='body1'
                     sx={{fontWeight: 'bold'}}
+                    color='secondary'
                 >
-                    Project&nbsp;Manager
+                    COMP583
                 </Typography>
             </Grid>
             <Grid item>

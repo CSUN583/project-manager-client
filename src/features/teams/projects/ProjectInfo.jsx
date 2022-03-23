@@ -1,7 +1,7 @@
 import React from 'react';
-import {Box, Grid, Typography} from "@mui/material";
+import {Box, Container, Grid, Typography} from "@mui/material";
 
-const TeamProjectInformation = ({projectData}) => {
+const ProjectInfo = ({projectData}) => {
     const {description, startTime, endTime} = projectData.project
 
     return (
@@ -16,6 +16,8 @@ const TeamProjectInformation = ({projectData}) => {
                 <Grid item>
                     <Grid
                         container
+                        wrap='nowrap'
+                        alignItems='center'
                         spacing={5}
                     >
                         <Grid item>
@@ -42,6 +44,8 @@ const TeamProjectInformation = ({projectData}) => {
                     <Typography
                         variant='body2'
                     >
+                        Description:
+                        <br />
                         {description}
                     </Typography>
                 </Grid>
@@ -50,4 +54,4 @@ const TeamProjectInformation = ({projectData}) => {
     );
 };
 
-export default TeamProjectInformation;
+export default ProjectInfo;

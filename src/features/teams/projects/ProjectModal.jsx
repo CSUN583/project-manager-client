@@ -5,12 +5,12 @@ import Modal from '@mui/material/Modal';
 import {useState} from "react";
 import {Grid, IconButton, Paper, TextField} from "@mui/material";
 import {AddCircleOutline} from "@mui/icons-material";
-import MobileDatePicker from '@mui/lab/MobileDatePicker';
-import {LocalizationProvider} from "@mui/lab";
+import {DatePicker, LocalizationProvider} from "@mui/lab";
 import DateAdapter from '@mui/lab/AdapterDateFns';
+import {endOfDay, format} from "date-fns";
 
 
-const AddProjectModal = ({refetch}) => {
+const ProjectModal = ({refetch}) => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -24,7 +24,7 @@ const AddProjectModal = ({refetch}) => {
         handleClose()
     }
 
-    const handleChange = (newValue) => {
+    const handleEndDateChange = (newValue) => {
         setProjectEndDate(newValue);
     };
 
@@ -43,7 +43,10 @@ const AddProjectModal = ({refetch}) => {
                 aria-describedby="modal-modal-description"
             >
                 <Paper sx={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>
-                    <Box p={5}>
+                    <Box
+                        p={5}
+                        minWidth={300}
+                    >
                         <form onSubmit={handleSubmit}>
                             <Grid
                                 container
@@ -62,6 +65,7 @@ const AddProjectModal = ({refetch}) => {
                                 <Grid item>
                                     <TextField
                                         required
+                                        fullWidth
                                         autoComplete='off'
                                         size='small'
                                         id="text-field-project-name"
@@ -73,18 +77,21 @@ const AddProjectModal = ({refetch}) => {
                                 </Grid>
                                 <Grid item>
                                     <LocalizationProvider dateAdapter={DateAdapter}>
-                                        <MobileDatePicker
-                                            label="End Date"
+                                        <DatePicker
+                                            disablePast
+                                            allowSameDateSelection
+                                            label="Project End Date"
                                             inputFormat="MM/dd/yyyy"
                                             value={projectEndDate}
-                                            onChange={handleChange}
-                                            renderInput={(params) => <TextField {...params} />}
+                                            onChange={handleEndDateChange}
+                                            renderInput={(params) => <TextField required fullWidth {...params} />}
                                         />
                                     </LocalizationProvider>
                                 </Grid>
                                 <Grid item>
                                     <TextField
                                         required
+                                        fullWidth
                                         autoComplete='off'
                                         size='small'
                                         multiline
@@ -114,4 +121,4 @@ const AddProjectModal = ({refetch}) => {
     );
 }
 
-export default AddProjectModal
+export default ProjectModal

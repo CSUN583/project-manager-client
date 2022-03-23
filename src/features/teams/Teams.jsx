@@ -1,27 +1,35 @@
 import { Container, Grid, Typography} from "@mui/material";
 import TeamsList from "./TeamsList";
+import ContentGrid from "../components/ContentGrid";
+import TopGrid from "../components/TopGrid";
+import HeaderGrid from "../components/HeaderGrid";
+import Title from "../components/Title";
+import TitleContainer from "../components/TitleContainer";
 
 
 const Teams = () => {
 
     return (
-        <Container
-            disableGutters
-        >
-            <Grid
-                container
-                direction='column'
-            >
-                <Grid item>
-                    <Typography variant='h3'>
-                        Teams
-                    </Typography>
-                </Grid>
-                <Grid item>
-                    <TeamsList />
-                </Grid>
+        <ContentGrid>
+            <Grid item>
+                <TopGrid>
+                    <Grid item>
+                        <HeaderGrid>
+                            <Grid item>
+                                <TitleContainer>
+                                    <Title>
+                                        Teams
+                                    </Title>
+                                </TitleContainer>
+                            </Grid>
+                        </HeaderGrid>
+                    </Grid>
+                    <Grid item>
+                        <TeamsList />
+                    </Grid>
+                </TopGrid>
             </Grid>
-        </Container>
+        </ContentGrid>
     );
 };
 

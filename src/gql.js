@@ -11,7 +11,10 @@ export const LIST_USERS = gql`
         users {
             id, 
             name, 
-            email
+            email,
+            teams{
+                id
+            }
         }
     }`
 

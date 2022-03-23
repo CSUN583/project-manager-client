@@ -4,32 +4,29 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import {useState} from "react";
 import {Grid, IconButton, Paper, TextField} from "@mui/material";
-import {useMutation} from "@apollo/react-hooks";
-import {CREATE_TEAM} from "../../gql";
 import {AddCircleOutline} from "@mui/icons-material";
+import {DatePicker, LocalizationProvider} from "@mui/lab";
+import DateAdapter from '@mui/lab/AdapterDateFns';
+import MemberModalList from "./MemberModalList";
 
-const AddTeamModal = ({refetch}) => {
+
+const MemberModal = ({refetch}) => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const [teamName, setTeamName] = useState('')
-    const [teamPrefix, setTeamPrefix] = useState('')
-
-    const [createTeam] = useMutation(CREATE_TEAM)
+    const [projectName, setProjectName] = useState('')
+    const [projectDescription, setProjectDescription] = useState('')
+    const [projectEndDate, setProjectEndDate] = useState('')
 
     const handleSubmit = (e) => {
         e.preventDefault()
-
-        createTeam({
-            variables: {
-                name: teamName,
-                prefix: teamPrefix,
-            }
-        })
-        .then(r => refetch())
-        .finally(() => handleClose())
+        handleClose()
     }
+
+    const handleEndDateChange = (newValue) => {
+        setProjectEndDate(newValue);
+    };
 
     return (
         <div>
@@ -46,7 +43,10 @@ const AddTeamModal = ({refetch}) => {
                 aria-describedby="modal-modal-description"
             >
                 <Paper sx={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>
-                    <Box p={5}>
+                    <Box
+                        p={5}
+                        minWidth={300}
+                    >
                         <form onSubmit={handleSubmit}>
                             <Grid
                                 container
@@ -59,33 +59,10 @@ const AddTeamModal = ({refetch}) => {
                                         variant="h5"
                                         component="h5"
                                     >
-                                        New Team
+                                        Add Member
                                     </Typography>
                                 </Grid>
-                                <Grid item>
-                                    <TextField
-                                        required
-                                        autoComplete='off'
-                                        size='small'
-                                        id="text-field-team-prefix"
-                                        label="Prefix"
-                                        variant='standard'
-                                        value={teamPrefix}
-                                        onChange={e => setTeamPrefix(e.target.value)}
-                                    />
-                                </Grid>
-                                <Grid item>
-                                    <TextField
-                                        required
-                                        autoComplete='off'
-                                        size='small'
-                                        id="text-field-team-name"
-                                        label="Name"
-                                        variant='standard'
-                                        value={teamName}
-                                        onChange={e => setTeamName(e.target.value)}
-                                    />
-                                </Grid>
+                                    <MemberModalList />
                                 <Grid item>
                                     <Button
                                         fullWidth
@@ -104,4 +81,4 @@ const AddTeamModal = ({refetch}) => {
     );
 }
 
-export default AddTeamModal
+export default MemberModal

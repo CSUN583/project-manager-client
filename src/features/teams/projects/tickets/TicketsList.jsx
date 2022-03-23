@@ -1,31 +1,32 @@
 import {
-    Box,
+    Box, CircularProgress,
+    Container,
     Divider,
-    Grid,
+    Grid, IconButton,
+    List,
     ListItem,
     ListItemText,
     Typography
 } from "@mui/material";
-import {useContext} from "react";
-import {TeamContext} from "./TeamsContext";
 import Button from "@mui/material/Button";
-import TeamModal from "./TeamModal";
+import {useContext} from "react";
+import {TeamContext} from "../../TeamsContext";
 import {useQuery} from "@apollo/react-hooks";
-import {LIST_TEAMS} from "../../gql";
-import LoadingCircle from "../components/LoadingCircle";
-import ListContainer from "../components/ListContainer";
+import {LIST_PROJECT_TICKETS} from "../../../../gql";
+import {AddCircleOutline} from "@mui/icons-material";
+import ListContainer from "../../../components/ListContainer";
 
 
-const TeamsList = () => {
-    const {setTeamId} = useContext(TeamContext)
+const TicketsList = () => {
+    const {teamProjectId, setTeamTicketId} = useContext(TeamContext)
 
     const handleClick = (id) => {
-        setTeamId(id)
+        setTeamTicketId(id)
     }
 
-    const { error, loading, data, refetch } = useQuery(LIST_TEAMS);
+    const { error, loading, data } = useQuery(LIST_PROJECT_TICKETS, {variables : {id: teamProjectId}});
 
-    if (loading) return <LoadingCircle />
+    if (loading) return <CircularProgress />
 
     if (error) return null
 
@@ -44,40 +45,45 @@ const TeamsList = () => {
                                 <Grid
                                     container
                                     wrap='nowrap'
+                                    alignItems='center'
                                 >
                                     <Grid item>
                                         <Box
-                                            width={100}
+                                            width={175}
                                         >
                                             <Typography
                                                 variant='caption'
                                             >
-                                                Prefix
+                                                Tickets
                                             </Typography>
                                         </Box>
                                     </Grid>
                                     <Grid item>
                                         <Box
-                                            width={150}
+                                            width={75}
                                         >
                                             <Typography
                                                 variant='caption'
                                             >
-                                                Name
+                                                Status
                                             </Typography>
                                         </Box>
                                     </Grid>
                                 </Grid>
                             </Grid>
                             <Grid item>
-                                <TeamModal refetch={refetch}/>
+                                <IconButton
+                                    color='primary'
+                                >
+                                    <AddCircleOutline />
+                                </IconButton>
                             </Grid>
                         </Grid>
                     }
                 />
             </ListItem>
-            <Divider />
-            {data?.teams?.map( t =>
+            <Divider variant="fullWidth"/>
+            {data?.project?.tickets?.map( t =>
                 <ListItem
                     key={t.id}
                 >
@@ -96,23 +102,23 @@ const TeamsList = () => {
                                     >
                                         <Grid item>
                                             <Box
-                                                width={100}
-                                            >
-                                                <Typography
-                                                    variant='body2'
-                                                >
-                                                    {t.prefix}
-                                                </Typography>
-                                            </Box>
-                                        </Grid>
-                                        <Grid item>
-                                            <Box
-                                                width={150}
+                                                width={175}
                                             >
                                                 <Typography
                                                     variant='body2'
                                                 >
                                                     {t.name}
+                                                </Typography>
+                                            </Box>
+                                        </Grid>
+                                        <Grid item>
+                                            <Box
+                                                width={75}
+                                            >
+                                                <Typography
+                                                    variant='caption'
+                                                >
+                                                    {t.status}
                                                 </Typography>
                                             </Box>
                                         </Grid>
@@ -132,7 +138,7 @@ const TeamsList = () => {
                 </ListItem>
             )}
         </ListContainer>
-    );
+    )
 };
 
-export default TeamsList;
+export default TicketsList;

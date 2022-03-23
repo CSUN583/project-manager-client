@@ -2,9 +2,15 @@ import {Box, CircularProgress, Container, Grid, Typography} from "@mui/material"
 import {useContext} from "react";
 import {useQuery} from "@apollo/react-hooks";
 import Button from "@mui/material/Button";
-import {UserContext} from "./UsersPage";
+import {UserContext} from "./UsersContext";
 import UserInformation from "./UserInformation";
 import {GET_USER} from "../../gql";
+import ContentGrid from "../components/ContentGrid";
+import TopGrid from "../components/TopGrid";
+import BreadcrumbGrid from "../components/BreadcrumbGrid";
+import HeaderGrid from "../components/HeaderGrid";
+import TitleContainer from "../components/TitleContainer";
+import Title from "../components/Title";
 
 const User = () => {
     const [userId, setUserId] = useContext(UserContext)
@@ -20,55 +26,45 @@ const User = () => {
     if (error) return null
 
     return (
-        <Container
-            disableGutters
-        >
-            <Grid
-                container
-                direction='column'
-            >
-                <Grid item>
-                    <Grid
-                        container
-                        alignItems='center'
-                    >
-                        <Grid item>
-                            <Button
-                                size='small'
-                                onClick={handleBreadcrumChange}
-                            >
-                                Users &nbsp;>
-                            </Button>
-                        </Grid>
-                        <Grid item>
-                            <Typography
-                                variant='body2'
-                            >
-                                {data.user.name}
-                            </Typography>
-                        </Grid>
-                    </Grid>
-                </Grid>
-                <Grid item>
-                    <Grid
-                        container
-                        direction='column'
-                        spacing={3}
-                    >
-                        <Grid item>
-                            <Box ml={1}>
-                                <Typography variant='h5'>
-                                    User:&nbsp;{data.user.name}
+        <ContentGrid>
+            <Grid>
+                <TopGrid>
+                    <Grid item>
+                        <BreadcrumbGrid>
+                            <Grid item>
+                                <Button
+                                    size='small'
+                                    onClick={handleBreadcrumChange}
+                                >
+                                    Users &nbsp;>
+                                </Button>
+                            </Grid>
+                            <Grid item>
+                                <Typography
+                                    variant='body2'
+                                >
+                                    {data.user.name}
                                 </Typography>
-                            </Box>
-                        </Grid>
-                        <Grid item>
-                            <UserInformation userData={data}/>
-                        </Grid>
+                            </Grid>
+                        </BreadcrumbGrid>
                     </Grid>
-                </Grid>
+                    <Grid item>
+                        <HeaderGrid>
+                            <Grid item>
+                                <TitleContainer>
+                                    <Title>
+                                        User:&nbsp;{data.user.name}
+                                    </Title>
+                                </TitleContainer>
+                            </Grid>
+                        </HeaderGrid>
+                    </Grid>
+                </TopGrid>
             </Grid>
-        </Container>
+            <Grid item>
+                <UserInformation userData={data}/>
+            </Grid>
+        </ContentGrid>
     )
 };
 

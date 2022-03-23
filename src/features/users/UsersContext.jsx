@@ -4,7 +4,7 @@ import User from "./User";
 
 export const UserContext = createContext([]);
 
-const UsersPage = () => {
+const UsersContext = () => {
     const [userId, setUserId] = useState(null);
 
     return (
@@ -14,4 +14,4 @@ const UsersPage = () => {
     )
 };
 
-export default UsersPage;
+export default UsersContext;

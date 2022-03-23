@@ -10,10 +10,11 @@ import {
 } from "@mui/material";
 import {useContext} from "react";
 import Button from "@mui/material/Button";
-import {UserContext} from "./UsersPage";
+import {UserContext} from "./UsersContext";
 import AddUserModal from "./AddUserModal";
 import {useQuery} from "@apollo/react-hooks";
 import {LIST_USERS} from "../../gql";
+import ListContainer from "../components/ListContainer";
 
 
 const UsersList = () => {
@@ -30,7 +31,7 @@ const UsersList = () => {
     if (error) return null
 
     return (
-        <List>
+        <ListContainer>
             <ListItem>
                 <ListItemText
                     primary ={
@@ -130,7 +131,7 @@ const UsersList = () => {
                     />
                 </ListItem>
             )}
-        </List>
+        </ListContainer>
     );
 };
 

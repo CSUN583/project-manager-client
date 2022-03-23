@@ -1,13 +1,20 @@
 import {Box, CircularProgress, Container, Grid, Typography} from "@mui/material";
 import {useContext, useState} from "react";
-import {TeamContext} from "./TeamsPage";
+import {TeamContext} from "./TeamsContext";
 import {useQuery} from "@apollo/react-hooks";
 import Button from "@mui/material/Button";
-import TeamMembersList from "./TeamMembersList";
+import MembersList from "./members/MembersList";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import {GET_TEAM_NAME} from "../../gql";
-import TeamProjectsList from "./TeamProjectsList";
+import ProjectsList from "./projects/ProjectsList";
+import ContentGrid from "../components/ContentGrid";
+import TopGrid from "../components/TopGrid";
+import BreadcrumbGrid from "../components/BreadcrumbGrid";
+import HeaderGrid from "../components/HeaderGrid";
+import TitleContainer from "../components/TitleContainer";
+import Title from "../components/Title";
+import HeaderNavContainer from "../components/HeaderNavContainer";
 
 const Team = () => {
     const {teamId, setTeamId} = useContext(TeamContext)
@@ -29,55 +36,39 @@ const Team = () => {
     if (error) return null
 
     return (
-        <Container
-            disableGutters
-        >
-            <Grid
-                container
-                direction='column'
-            >
-                <Grid item>
-                    <Grid
-                        container
-                        direction='column'
-                    >
-                        <Grid item>
-                            <Grid
-                                container
-                                alignItems='center'
-                            >
-                                <Grid item>
-                                    <Button
-                                        size='small'
-                                        onClick={handleBreadcrumChange}
-                                    >
-                                        Teams &nbsp;>
-                                    </Button>
-                                </Grid>
-                                <Grid item>
-                                    <Typography
-                                        variant='body2'
-                                    >
-                                        {data.team.prefix}
-                                    </Typography>
-                                </Grid>
+        <ContentGrid>
+            <Grid item>
+                <TopGrid>
+                    <Grid item>
+                        <BreadcrumbGrid>
+                            <Grid item>
+                                <Button
+                                    size='small'
+                                    onClick={handleBreadcrumChange}
+                                >
+                                    Teams &nbsp;>
+                                </Button>
                             </Grid>
-                        </Grid>
-                        <Grid item>
-                            <Grid
-                                container
-                                wrap='nowrap'
-                                alignItems='center'
-                                justifyContent='space-between'
-                            >
-                                <Grid item>
-                                    <Box ml={1}>
-                                        <Typography variant='h5'>
-                                            Team:&nbsp;{data.team.prefix}
-                                        </Typography>
-                                    </Box>
-                                </Grid>
-                                <Grid item>
+                            <Grid item>
+                                <Typography
+                                    variant='body2'
+                                >
+                                    {data.team.prefix}
+                                </Typography>
+                            </Grid>
+                        </BreadcrumbGrid>
+                    </Grid>
+                    <Grid item>
+                        <HeaderGrid>
+                            <Grid item>
+                                <TitleContainer>
+                                    <Title>
+                                        Team:&nbsp;{data.team.prefix}
+                                    </Title>
+                                </TitleContainer>
+                            </Grid>
+                            <Grid item>
+                                <HeaderNavContainer>
                                     <BottomNavigation
                                         showLabels
                                         value={navigation}
@@ -92,16 +83,16 @@ const Team = () => {
                                             value="members"
                                         />
                                     </BottomNavigation>
-                                </Grid>
+                                </HeaderNavContainer>
                             </Grid>
-                        </Grid>
+                        </HeaderGrid>
                     </Grid>
-                </Grid>
-                <Grid item>
-                    {navigation === 'projects' ? <TeamProjectsList/> : <TeamMembersList />}
-                </Grid>
+                </TopGrid>
             </Grid>
-        </Container>
+            <Grid item>
+                {navigation === 'projects' ? <ProjectsList/> : <MembersList />}
+            </Grid>
+        </ContentGrid>
     )
 };
 
