@@ -5,7 +5,7 @@ const ListContainer = ({children}) => {
         <Container
             disableGutters
         >
-            <Box maxWidth={200}>
+            <Box>
                 <List
                     disablePadding
                 >
