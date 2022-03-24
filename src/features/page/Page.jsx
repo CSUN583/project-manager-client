@@ -12,7 +12,7 @@ const Page = () => {
     return (
         <LayoutContext.Provider value={[layout, setLayout]}>
             <Container
-                maxWidth='xs'
+                maxWidth='sm'
             >
                 <Box
                     display='flex'
