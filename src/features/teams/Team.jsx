@@ -7,7 +7,7 @@ import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import {GET_TEAM_NAME} from "../../gql";
 import ProjectsList from "./projects/ProjectsList";
-import ContentLayout from "../components/ContentLayout";
+import ContentLayout from "../layout/ContentLayout";
 
 const Team = () => {
     const {teamId, setTeamId} = useContext(TeamContext)

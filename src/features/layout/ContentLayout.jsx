@@ -1,12 +1,12 @@
 import {Grid} from "@mui/material";
-import Breadcrumb from "./Breadcrumb";
-import ContentGridProxy from "./ContentGridProxy";
-import TopProxy from "./TopProxy";
-import BreadcrumbGridProxy from "./BreadcrumbGridProxy";
-import HeaderGridProxy from "./HeaderGridProxy";
-import TitleProxy from "./TitleProxy";
-import Title from "./Title";
-import HeaderNavProxy from "./HeaderNavProxy";
+import Breadcrumb from "../components/Breadcrumb";
+import ContentGridProxy from "../proxy/ContentGridProxy";
+import TopProxy from "../proxy/TopProxy";
+import BreadcrumbGridProxy from "../proxy/BreadcrumbGridProxy";
+import HeaderGridProxy from "../proxy/HeaderGridProxy";
+import TitleProxy from "../proxy/TitleProxy";
+import Title from "../components/Title";
+import HeaderNavProxy from "../proxy/HeaderNavProxy";
 
 const ContentLayout = (
     {

@@ -1,5 +1,5 @@
 import TeamsList from "./TeamsList";
-import ContentLayout from "../components/ContentLayout";
+import ContentLayout from "../layout/ContentLayout";
 
 
 const Teams = () => {

@@ -3,7 +3,7 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import ThemeToggle from "../theme/ThemeToggle";
 import {Grid, Typography} from "@mui/material";
 import {useContext} from "react";
-import {LayoutContext} from "./Layout";
+import {LayoutContext} from "./Page";
 
 
 const Navbar = () => {

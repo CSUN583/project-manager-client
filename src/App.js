@@ -1,4 +1,4 @@
-import Layout from "./features/layout/Layout";
+import Page from "./features/page/Page";
 import {ThemeProvider} from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import lightTheme from "./features/theme/theme";
@@ -16,7 +16,7 @@ function App() {
             <ThemeProvider theme={theme}>
                 <CssBaseline />
                 <ThemeContext.Provider value={[theme, setTheme]}>
-                    <Layout />
+                    <Page />
                 </ThemeContext.Provider>
             </ThemeProvider>
         </ApolloProvider>

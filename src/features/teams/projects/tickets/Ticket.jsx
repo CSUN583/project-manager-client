@@ -4,13 +4,13 @@ import {useQuery} from "@apollo/react-hooks";
 import {GET_PROJECT_INFO, GET_TEAM_NAME, GET_TICKET} from "../../../../gql";
 import {Box, CircularProgress, Container, Grid, Typography} from "@mui/material";
 import Button from "@mui/material/Button";
-import ContentGridProxy from "../../../components/ContentGridProxy";
-import TopProxy from "../../../components/TopProxy";
-import BreadcrumbGridProxy from "../../../components/BreadcrumbGridProxy";
-import HeaderGridProxy from "../../../components/HeaderGridProxy";
-import TitleProxy from "../../../components/TitleProxy";
+import ContentGridProxy from "../../../proxy/ContentGridProxy";
+import TopProxy from "../../../proxy/TopProxy";
+import BreadcrumbGridProxy from "../../../proxy/BreadcrumbGridProxy";
+import HeaderGridProxy from "../../../proxy/HeaderGridProxy";
+import TitleProxy from "../../../proxy/TitleProxy";
 import Title from "../../../components/Title";
-import ContentLayout from "../../../components/ContentLayout";
+import ContentLayout from "../../../layout/ContentLayout";
 
 const Ticket = () => {
     const {teamTicketId, setTeamTicketId, teamProjectId, setTeamProjectId, teamId, setTeamId} = useContext(TeamContext)

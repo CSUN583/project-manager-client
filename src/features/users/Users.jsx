@@ -1,5 +1,5 @@
 import UsersList from "./UsersList";
-import ContentLayout from "../components/ContentLayout";
+import ContentLayout from "../layout/ContentLayout";
 
 
 const Users = () => {

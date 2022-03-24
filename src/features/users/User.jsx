@@ -4,7 +4,7 @@ import {useQuery} from "@apollo/react-hooks";
 import {UserContext} from "./UsersContext";
 import UserInformation from "./UserInformation";
 import {GET_USER} from "../../gql";
-import ContentLayout from "../components/ContentLayout";
+import ContentLayout from "../layout/ContentLayout";
 
 const User = () => {
     const [userId, setUserId] = useContext(UserContext)

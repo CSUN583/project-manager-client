@@ -1,20 +1,10 @@
-import {
-    Box, CircularProgress,
-    Container,
-    Divider,
-    Grid, IconButton,
-    List,
-    ListItem,
-    ListItemText,
-    Typography
-} from "@mui/material";
-import Button from "@mui/material/Button";
+import {CircularProgress} from "@mui/material";
 import {useContext} from "react";
 import {TeamContext} from "../../TeamsContext";
 import {useQuery} from "@apollo/react-hooks";
 import {LIST_PROJECT_TICKETS} from "../../../../gql";
-import {AddCircleOutline} from "@mui/icons-material";
-import ListContainerProxy from "../../../components/ListContainerProxy";
+import ListLayout from "../../../layout/ListLayout";
+import TicketModal from "./TicketModal";
 
 
 const TicketsList = () => {
@@ -24,120 +14,41 @@ const TicketsList = () => {
         setTeamTicketId(id)
     }
 
-    const { error, loading, data } = useQuery(LIST_PROJECT_TICKETS, {variables : {id: teamProjectId}});
+    const {error, loading, data, refetch} = useQuery(LIST_PROJECT_TICKETS, {variables: {id: teamProjectId}});
 
-    if (loading) return <CircularProgress />
+    if (loading) return <CircularProgress/>
 
     if (error) return null
 
     return (
-        <ListContainerProxy>
-            <ListItem>
-                <ListItemText
-                    primary ={
-                        <Grid
-                            container
-                            wrap='nowrap'
-                            justifyContent='space-between'
-                            alignItems='center'
-                        >
-                            <Grid item>
-                                <Grid
-                                    container
-                                    wrap='nowrap'
-                                    alignItems='center'
-                                >
-                                    <Grid item>
-                                        <Box
-                                            width={175}
-                                        >
-                                            <Typography
-                                                variant='caption'
-                                            >
-                                                Tickets
-                                            </Typography>
-                                        </Box>
-                                    </Grid>
-                                    <Grid item>
-                                        <Box
-                                            width={75}
-                                        >
-                                            <Typography
-                                                variant='caption'
-                                            >
-                                                Status
-                                            </Typography>
-                                        </Box>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                            <Grid item>
-                                <IconButton
-                                    color='primary'
-                                >
-                                    <AddCircleOutline />
-                                </IconButton>
-                            </Grid>
-                        </Grid>
-                    }
-                />
-            </ListItem>
-            <Divider variant="fullWidth"/>
-            {data?.project?.tickets?.map( t =>
-                <ListItem
-                    key={t.id}
-                >
-                    <ListItemText
-                        primary = {
-                            <Grid
-                                container
-                                wrap='nowrap'
-                                justifyContent='space-between'
-                                alignItems='center'
-                            >
-                                <Grid item>
-                                    <Grid
-                                        container
-                                        wrap='nowrap'
-                                    >
-                                        <Grid item>
-                                            <Box
-                                                width={175}
-                                            >
-                                                <Typography
-                                                    variant='body2'
-                                                >
-                                                    {t.name}
-                                                </Typography>
-                                            </Box>
-                                        </Grid>
-                                        <Grid item>
-                                            <Box
-                                                width={75}
-                                            >
-                                                <Typography
-                                                    variant='caption'
-                                                >
-                                                    {t.status}
-                                                </Typography>
-                                            </Box>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                                <Grid item>
-                                    <Button
-                                        onClick={() => handleClick(t.id)}
-                                        size='small'
-                                    >
-                                        View
-                                    </Button>
-                                </Grid>
-                            </Grid>
-                        }
-                    />
-                </ListItem>
-            )}
-        </ListContainerProxy>
+        <ListLayout
+            headerColumns={[
+                {
+                    'width': 175,
+                    'text': 'Tickets',
+                },
+                {
+                    'width': 75,
+                    'text': 'Status',
+                },
+            ]}
+            modal={<TicketModal refetch={refetch}/>}
+            data={data?.project?.tickets?.map(ticket => {
+                return {
+                    'columns': [
+                        {
+                            'width': 125,
+                            'text': ticket.name
+                        },
+                        {
+                            'width': 125,
+                            'text': ticket.status
+                        },
+                    ],
+                    'onClick': () => handleClick(ticket.id)
+                }
+            })}
+        />
     )
 };
 

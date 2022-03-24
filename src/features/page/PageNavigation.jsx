@@ -1,10 +1,10 @@
 import {useContext} from 'react';
-import {LayoutContext} from "./Layout";
+import {LayoutContext} from "./Page";
 import UsersContext from "../users/UsersContext";
 import TeamsContext from "../teams/TeamsContext";
 
 
-const LayoutNavigation = () => {
+const PageNavigation = () => {
 
     const [layout] = useContext(LayoutContext)
 
@@ -18,4 +18,4 @@ const LayoutNavigation = () => {
     }
 };
 
-export default LayoutNavigation;
+export default PageNavigation;
