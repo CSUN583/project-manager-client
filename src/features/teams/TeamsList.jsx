@@ -13,7 +13,7 @@ import TeamModal from "./TeamModal";
 import {useQuery} from "@apollo/react-hooks";
 import {LIST_TEAMS} from "../../gql";
 import LoadingCircle from "../components/LoadingCircle";
-import ListContainer from "../components/ListContainer";
+import ListContainerProxy from "../components/ListContainerProxy";
 
 
 const TeamsList = () => {
@@ -30,7 +30,7 @@ const TeamsList = () => {
     if (error) return null
 
     return (
-        <ListContainer>
+        <ListContainerProxy>
             <ListItem>
                 <ListItemText
                     primary ={
@@ -131,7 +131,7 @@ const TeamsList = () => {
                     />
                 </ListItem>
             )}
-        </ListContainer>
+        </ListContainerProxy>
     );
 };
 

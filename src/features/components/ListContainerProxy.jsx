@@ -1,6 +1,6 @@
 import {Box, Container, List} from "@mui/material";
 
-const ListContainer = ({children}) => {
+const ListContainerProxy = ({children}) => {
     return (
         <Container
             disableGutters
@@ -16,5 +16,5 @@ const ListContainer = ({children}) => {
     );
 };
 
-export default ListContainer;
+export default ListContainerProxy;
 

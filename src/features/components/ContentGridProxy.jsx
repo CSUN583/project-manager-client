@@ -1,7 +1,7 @@
 import React from 'react';
 import {Container, Grid} from "@mui/material";
 
-const ContentGrid = ({children}) => {
+const ContentGridProxy = ({children}) => {
     return (
         <Container
             disableGutters
@@ -17,4 +17,4 @@ const ContentGrid = ({children}) => {
     );
 };
 
-export default ContentGrid;
+export default ContentGridProxy;

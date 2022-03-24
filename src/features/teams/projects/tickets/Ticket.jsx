@@ -4,12 +4,13 @@ import {useQuery} from "@apollo/react-hooks";
 import {GET_PROJECT_INFO, GET_TEAM_NAME, GET_TICKET} from "../../../../gql";
 import {Box, CircularProgress, Container, Grid, Typography} from "@mui/material";
 import Button from "@mui/material/Button";
-import ContentGrid from "../../../components/ContentGrid";
-import TopGrid from "../../../components/TopGrid";
-import BreadcrumbGrid from "../../../components/BreadcrumbGrid";
-import HeaderGrid from "../../../components/HeaderGrid";
-import TitleContainer from "../../../components/TitleContainer";
+import ContentGridProxy from "../../../components/ContentGridProxy";
+import TopProxy from "../../../components/TopProxy";
+import BreadcrumbGridProxy from "../../../components/BreadcrumbGridProxy";
+import HeaderGridProxy from "../../../components/HeaderGridProxy";
+import TitleProxy from "../../../components/TitleProxy";
 import Title from "../../../components/Title";
+import ContentLayout from "../../../components/ContentLayout";
 
 const Ticket = () => {
     const {teamTicketId, setTeamTicketId, teamProjectId, setTeamProjectId, teamId, setTeamId} = useContext(TeamContext)
@@ -44,95 +45,51 @@ const Ticket = () => {
     if (projectError || teamError || ticketError) return null
 
     return (
-        <ContentGrid>
-            <Grid item>
-                <TopGrid>
+        <ContentLayout
+            breadcrumb={[
+                {
+                   'onClick': handleBreadcrumTeamChange,
+                    'text': 'Teams >'
+                },
+                {
+                    'onClick': handleBreadcrumProjectChange,
+                    'text': `${teamData.team.prefix} >`
+                },
+                {
+                    'onClick': handleBreadcrumTicketChange,
+                    'text': `${projectData.project.name} >`
+                },
+                {
+                    'text': `Ticket: ${ticketData.ticket.name}`,
+                    'disabled': true
+                }
+            ]}
+            info={
+                <Grid
+                    container
+                    spacing={5}
+                >
                     <Grid item>
-                        <BreadcrumbGrid>
-                            <Grid item>
-                                <Button
-                                    size='small'
-                                    onClick={handleBreadcrumTeamChange}
-                                >
-                                    Teams &nbsp;>
-                                </Button>
-                            </Grid>
-                            <Grid item>
-                                <Button
-                                    size='small'
-                                    onClick={handleBreadcrumProjectChange}
-                                >
-                                    {teamData.team.prefix} &nbsp;>
-                                </Button>
-                            </Grid>
-                            <Grid item>
-                                <Button
-                                    size='small'
-                                    onClick={handleBreadcrumTicketChange}
-                                >
-                                    {projectData.project.name} &nbsp;>
-                                </Button>
-                            </Grid>
-                            <Grid item>
-                                <Typography
-                                    variant='body2'
-                                >
-                                    {ticketData.ticket.name}
-                                </Typography>
-                            </Grid>
-                        </BreadcrumbGrid>
-                    </Grid>
-                    <Grid item>
-                        <HeaderGrid>
-                            <Grid item>
-                                <TitleContainer>
-                                    <Title>
-                                        Ticket:&nbsp;{ticketData.ticket.name}
-                                    </Title>
-                                </TitleContainer>
-                            </Grid>
-                        </HeaderGrid>
-                    </Grid>
-                    <Grid item>
-                        <Box
-                            ml={1}
+                        <Typography
+                            variant='body2'
                         >
-                            <Grid
-                                container
-                                direction='column'
-                                spacing={3}
-                            >
-                                <Grid item>
-                                    <Grid
-                                        container
-                                        spacing={5}
-                                    >
-                                        <Grid item>
-                                            <Typography
-                                                variant='body2'
-                                            >
-                                                Points:
-                                                <br />
-                                                {ticketData.ticket.point}
-                                            </Typography>
-                                        </Grid>
-                                        <Grid item>
-                                            <Typography
-                                                variant='body2'
-                                            >
-                                                Status:
-                                                <br />
-                                                {ticketData.ticket.status}
-                                            </Typography>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                        </Box>
+                            Points:
+                            <br />
+                            {ticketData.ticket.point}
+                        </Typography>
                     </Grid>
-                </TopGrid>
-            </Grid>
-        </ContentGrid>
+                    <Grid item>
+                        <Typography
+                            variant='body2'
+                        >
+                            Status:
+                            <br />
+                            {ticketData.ticket.status}
+                        </Typography>
+                    </Grid>
+                </Grid>
+            }
+        />
     );
 };
 

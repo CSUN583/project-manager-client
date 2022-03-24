@@ -15,7 +15,7 @@ import Button from "@mui/material/Button";
 import {LIST_TEAM_MEMBERS} from "../../../gql";
 import LoadingCircle from "../../components/LoadingCircle";
 import MemberModal from "./MemberModal";
-import ListContainer from "../../components/ListContainer";
+import ListContainerProxy from "../../components/ListContainerProxy";
 
 
 const MembersList = () => {
@@ -32,7 +32,7 @@ const MembersList = () => {
     if (error) return null
 
     return (
-        <ListContainer>
+        <ListContainerProxy>
             <ListItem>
                 <ListItemText
                     primary={
@@ -133,7 +133,7 @@ const MembersList = () => {
                     />
                 </ListItem>
             )}
-        </ListContainer>
+        </ListContainerProxy>
     );
 };
 

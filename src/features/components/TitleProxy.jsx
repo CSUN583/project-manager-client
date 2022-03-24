@@ -1,6 +1,6 @@
 import {Box} from "@mui/material";
 
-const TitleContainer = ({children}) => {
+const TitleProxy = ({children}) => {
     return (
         <Box ml={1}>
             {children}
@@ -8,4 +8,4 @@ const TitleContainer = ({children}) => {
     );
 };
 
-export default TitleContainer;
+export default TitleProxy;

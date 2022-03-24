@@ -14,7 +14,7 @@ import {TeamContext} from "../../TeamsContext";
 import {useQuery} from "@apollo/react-hooks";
 import {LIST_PROJECT_TICKETS} from "../../../../gql";
 import {AddCircleOutline} from "@mui/icons-material";
-import ListContainer from "../../../components/ListContainer";
+import ListContainerProxy from "../../../components/ListContainerProxy";
 
 
 const TicketsList = () => {
@@ -31,7 +31,7 @@ const TicketsList = () => {
     if (error) return null
 
     return (
-        <ListContainer>
+        <ListContainerProxy>
             <ListItem>
                 <ListItemText
                     primary ={
@@ -137,7 +137,7 @@ const TicketsList = () => {
                     />
                 </ListItem>
             )}
-        </ListContainer>
+        </ListContainerProxy>
     )
 };
 

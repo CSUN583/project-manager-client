@@ -14,7 +14,7 @@ import {UserContext} from "./UsersContext";
 import AddUserModal from "./AddUserModal";
 import {useQuery} from "@apollo/react-hooks";
 import {LIST_USERS} from "../../gql";
-import ListContainer from "../components/ListContainer";
+import ListContainerProxy from "../components/ListContainerProxy";
 
 
 const UsersList = () => {
@@ -31,7 +31,7 @@ const UsersList = () => {
     if (error) return null
 
     return (
-        <ListContainer>
+        <ListContainerProxy>
             <ListItem>
                 <ListItemText
                     primary ={
@@ -131,7 +131,7 @@ const UsersList = () => {
                     />
                 </ListItem>
             )}
-        </ListContainer>
+        </ListContainerProxy>
     );
 };
 

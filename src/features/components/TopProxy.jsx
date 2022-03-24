@@ -1,6 +1,6 @@
 import {Grid} from "@mui/material";
 
-const TopGrid = ({children}) => {
+const TopProxy = ({children}) => {
     return (
         <Grid
             container
@@ -11,4 +11,4 @@ const TopGrid = ({children}) => {
     );
 };
 
-export default TopGrid;
+export default TopProxy;

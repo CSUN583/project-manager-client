@@ -1,92 +1,58 @@
-import {useContext, useState} from "react";
+import {useContext} from "react";
 import {TeamContext} from "../TeamsContext";
-import {Box, CircularProgress, Container, Divider, Grid, Typography} from "@mui/material";
-import Button from "@mui/material/Button";
-import BottomNavigation from "@mui/material/BottomNavigation";
-import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import {useQuery} from "@apollo/react-hooks";
 import {GET_PROJECT_INFO, GET_TEAM_NAME} from "../../../gql";
 import TicketsList from "./tickets/TicketsList";
 import ProjectInfo from "./ProjectInfo";
 import LoadingCircle from "../../components/LoadingCircle";
-import ContentGrid from "../../components/ContentGrid";
-import TopGrid from "../../components/TopGrid";
-import BreadcrumbGrid from "../../components/BreadcrumbGrid";
-import HeaderGrid from "../../components/HeaderGrid";
-import TitleContainer from "../../components/TitleContainer";
-import Title from "../../components/Title";
+import ContentLayout from "../../components/ContentLayout";
 
 
 const Project = () => {
     const {teamId, setTeamId, teamProjectId, setTeamProjectId} = useContext(TeamContext)
 
-    const handleBreadcrumProjectChange = () => {
+    const handleBreadcrumbProjectChange = () => {
         setTeamProjectId(null);
     };
 
-    const handleBreadcrumTeamChange = () => {
+    const handleBreadcrumbTeamChange = () => {
         setTeamProjectId(null);
         setTeamId(null)
     };
 
-    const { error: projectError, loading: projectLoading, data: projectData } = useQuery(GET_PROJECT_INFO, {variables : {id: teamProjectId}});
-    const { error: teamError, loading: teamLoading, data: teamData } = useQuery(GET_TEAM_NAME, {variables : {id: teamId}});
-    if (projectLoading || teamLoading) return <LoadingCircle />
+    const {
+        error: projectError,
+        loading: projectLoading,
+        data: projectData
+    } = useQuery(GET_PROJECT_INFO, {variables: {id: teamProjectId}});
+
+    const {error: teamError, loading: teamLoading, data: teamData} = useQuery(GET_TEAM_NAME, {variables: {id: teamId}});
+
+    if (projectLoading || teamLoading) return <LoadingCircle/>
+
     if (projectError || teamError) return null
 
     return (
-        <ContentGrid>
-            <Grid item>
-                <TopGrid>
-                    <Grid item>
-                        <BreadcrumbGrid>
-                            <Grid item>
-                                <Button
-                                    size='small'
-                                    onClick={handleBreadcrumTeamChange}
-                                >
-                                    Teams &nbsp;>
-                                </Button>
-                            </Grid>
-                            <Grid item>
-                                <Button
-                                    size='small'
-                                    onClick={handleBreadcrumProjectChange}
-                                >
-                                    {teamData.team.prefix} &nbsp;>
-                                </Button>
-                            </Grid>
-                            <Grid item>
-                                <Typography
-                                    variant='body2'
-                                >
-                                    {projectData.project.name}
-                                </Typography>
-                            </Grid>
-                        </BreadcrumbGrid>
-                    </Grid>
-                    <Grid item>
-                        <HeaderGrid>
-                            <Grid item>
-                                <TitleContainer>
-                                    <Title>
-                                        Project:&nbsp;{projectData.project.name}
-                                    </Title>
-                                </TitleContainer>
-                            </Grid>
-                        </HeaderGrid>
-                    </Grid>
-                </TopGrid>
-            </Grid>
-            <Grid item>
-                <ProjectInfo projectData={projectData}/>
-            </Grid>
-            <Grid item>
-                <TicketsList/>
-            </Grid>
-        </ContentGrid>
-    );
-
-};
+        <ContentLayout
+            breadcrumb={[
+                {
+                    'onClick': handleBreadcrumbTeamChange,
+                    'text': 'Teams >'
+                },
+                {
+                    'onClick': handleBreadcrumbProjectChange,
+                    'text': `${teamData?.team?.prefix} >`
+                },
+                {
+                    'text': projectData?.project?.name,
+                    'disabled': true
+                }
+            ]}
+            title={`Project: ${projectData.project.name}`}
+            info={<ProjectInfo projectData={projectData}/>}
+            list={<TicketsList/>}
+        />
+    )
+}
 
 export default Project;
