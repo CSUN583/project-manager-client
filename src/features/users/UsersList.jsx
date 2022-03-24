@@ -1,7 +1,7 @@
 import {CircularProgress} from "@mui/material";
 import {useContext} from "react";
 import {UserContext} from "./UsersContext";
-import AddUserModal from "./AddUserModal";
+import UserModal from "./UserModal";
 import {useQuery} from "@apollo/react-hooks";
 import {LIST_USERS} from "../../gql";
 import ListLayout from "../layout/ListLayout";
@@ -32,7 +32,7 @@ const UsersList = () => {
                     'text': 'Email',
                 },
             ]}
-            modal={<AddUserModal refetch={refetch}/>}
+            modal={<UserModal refetch={refetch}/>}
             data={data?.users?.map(user => {
                 return {
                     'columns': [
