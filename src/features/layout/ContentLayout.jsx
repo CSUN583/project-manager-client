@@ -22,8 +22,8 @@ const ContentLayout = (
                 <TopProxy>
                     <Grid item>
                         <BreadcrumbGridProxy>
-                            {breadcrumb?.map(path =>
-                                <Grid item>
+                            {breadcrumb?.map((path, i) =>
+                                <Grid key={i} item>
                                     <Breadcrumb
                                         onClick={path?.onClick}
                                         text={path?.text}
