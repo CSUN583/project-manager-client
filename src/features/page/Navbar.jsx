@@ -30,23 +30,31 @@ const Navbar = () => {
                 </Typography>
             </Grid>
             <Grid item>
-                <BottomNavigation
-                    showLabels
-                    value={layout}
-                    onChange={handleChange}
+                <Grid
+                    container
+                    alignItems='center'
+                    spacing={3}
                 >
-                    <BottomNavigationAction
-                        label="Teams"
-                        value="teams"
-                    />
-                    <BottomNavigationAction
-                        label="Users"
-                        value="users"
-                    />
-                </BottomNavigation>
-            </Grid>
-            <Grid item>
-                <ThemeToggle />
+                    <Grid item>
+                        <BottomNavigation
+                            showLabels
+                            value={layout}
+                            onChange={handleChange}
+                        >
+                            <BottomNavigationAction
+                                label="Teams"
+                                value="teams"
+                            />
+                            <BottomNavigationAction
+                                label="Users"
+                                value="users"
+                            />
+                        </BottomNavigation>
+                    </Grid>
+                    <Grid item>
+                        <ThemeToggle />
+                    </Grid>
+                </Grid>
             </Grid>
         </Grid>
     );
