@@ -1,7 +1,7 @@
 import ListContainerProxy from "../proxy/ListContainerProxy";
 import {Divider, Grid, ListItem, ListItemText} from "@mui/material";
-import ListGridProxy from "../proxy/ListTextGridProxy";
-import ListContentGridProxy from "../proxy/ListRowGridProxy";
+import ListTextGridProxy from "../proxy/ListTextGridProxy";
+import ListRowGridProxy from "../proxy/ListRowGridProxy";
 import Button from "@mui/material/Button";
 import ListTextColumn from "../components/ListTextColumn";
 import LoadingCircle from "../components/LoadingCircle";
@@ -18,9 +18,9 @@ const ListLayout = (
             <ListItem>
                 <ListItemText
                     primary ={
-                        <ListGridProxy>
+                        <ListTextGridProxy>
                             <Grid item>
-                                <ListContentGridProxy>
+                                <ListRowGridProxy>
                                     {headerColumns?.map((col, i) =>
                                         <Grid key={i} item>
                                             <ListTextColumn
@@ -29,12 +29,12 @@ const ListLayout = (
                                             />
                                         </Grid>
                                     )}
-                                </ListContentGridProxy>
+                                </ListRowGridProxy>
                             </Grid>
                             <Grid item>
                                 {modal}
                             </Grid>
-                        </ListGridProxy>
+                        </ListTextGridProxy>
                     }
                 />
             </ListItem>
@@ -44,9 +44,9 @@ const ListLayout = (
                     <ListItem key={i}>
                         <ListItemText
                             primary={
-                                <ListGridProxy>
+                                <ListTextGridProxy>
                                     <Grid item>
-                                        <ListContentGridProxy>
+                                        <ListRowGridProxy>
                                             {context?.columns.map((col, i) =>
                                                 <Grid key={i} item>
                                                     <ListTextColumn
@@ -56,7 +56,7 @@ const ListLayout = (
                                                     />
                                                 </Grid>
                                             )}
-                                        </ListContentGridProxy>
+                                        </ListRowGridProxy>
                                     </Grid>
                                     <Grid item>
                                         <Button
@@ -66,7 +66,7 @@ const ListLayout = (
                                             View
                                         </Button>
                                     </Grid>
-                                </ListGridProxy>
+                                </ListTextGridProxy>
                             }
                         />
                     </ListItem>

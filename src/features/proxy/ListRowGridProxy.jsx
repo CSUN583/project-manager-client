@@ -5,6 +5,7 @@ const ListRowGridProxy = ({children}) => {
         <Grid
             container
             wrap='nowrap'
+            columnSpacing={{ xs: 1, sm: 5}}
         >
             {children}
         </Grid>

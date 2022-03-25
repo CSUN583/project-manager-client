@@ -59,14 +59,14 @@ const TicketModal = ({refetch}) => {
                         inputProps={{maxLength: 15}}
                         autoComplete='off'
                         size='small'
-                        id="text-field-ticket-name"
+                        id="modal-ticket-text-field-ticket-name"
                         label="Name"
                         variant='standard'
                         value={ticketName}
                         onChange={e => setTicketName(e.target.value)}
                     />,
                     <TextField
-                        id="outlined-select-currency"
+                        id="ticket-modal-text-field-ticket-point"
                         select
                         fullWidth
                         label="Points"
@@ -89,7 +89,7 @@ const TicketModal = ({refetch}) => {
                         size='small'
                         multiline
                         rows={4}
-                        id="text-field-ticket-description"
+                        id="ticket-modal-text-field-ticket-description"
                         label="Description"
                         variant='outlined'
                         value={ticketDescription}

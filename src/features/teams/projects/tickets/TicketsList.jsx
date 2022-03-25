@@ -5,6 +5,7 @@ import {useQuery} from "@apollo/react-hooks";
 import {LIST_PROJECT_TICKETS} from "../../../../gql";
 import ListLayout from "../../../layout/ListLayout";
 import TicketModal from "./TicketModal";
+import {ticket_color_enum, ticket_status_enum} from "./Ticket";
 
 
 const TicketsList = () => {
@@ -12,24 +13,6 @@ const TicketsList = () => {
 
     const handleClick = (id) => {
         setTeamTicketId(id)
-    }
-
-    const status_enum = {
-        0: "new",
-        1: "started",
-        2: "finished",
-        3: "accepted",
-        4: "denied ",
-        5: "delivered"
-    }
-
-    const color_enum = {
-        0: "primary",
-        1: "warning",
-        2: "success",
-        3: "secondary",
-        4: "error ",
-        5: "info"
     }
 
     const {error, loading, data, refetch} = useQuery(LIST_PROJECT_TICKETS, {variables: {id: teamProjectId}});
@@ -63,8 +46,8 @@ const TicketsList = () => {
                             'component':
                                 <Chip
                                     sx={{width: '90px'}}
-                                    label={status_enum[ticket.status]}
-                                    color={color_enum[ticket.status]}
+                                    label={ticket_status_enum[ticket.status]}
+                                    color={ticket_color_enum[ticket.status]}
                                 />
                         },
                     ],

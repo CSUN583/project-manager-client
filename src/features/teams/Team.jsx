@@ -1,4 +1,3 @@
-import {CircularProgress} from "@mui/material";
 import {useContext, useState} from "react";
 import {TeamContext} from "./TeamsContext";
 import {useQuery} from "@apollo/react-hooks";
@@ -8,6 +7,7 @@ import BottomNavigation from "@mui/material/BottomNavigation";
 import {GET_TEAM_NAME} from "../../gql";
 import ProjectsList from "./projects/ProjectsList";
 import ContentLayout from "../layout/ContentLayout";
+import LoadingCircle from "../components/LoadingCircle";
 
 const Team = () => {
     const {teamId, setTeamId} = useContext(TeamContext)
@@ -24,7 +24,7 @@ const Team = () => {
 
     const {error, loading, data} = useQuery(GET_TEAM_NAME, {variables: {id: teamId}});
 
-    if (loading) return <CircularProgress/>
+    if (loading) return <LoadingCircle/>
 
     if (error) return null
 

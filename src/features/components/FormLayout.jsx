@@ -4,13 +4,19 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
 
-const FormLayout = ({onSubmit=()=>{}, title='', content=[]}) => {
+const FormLayout = (
+    {
+        onSubmit=()=>{},
+        title='',
+        content=[],
+        label='Submit',
+        disabled=false
+    }) => {
     return (
         <form onSubmit={onSubmit}>
             <FormGridProxy>
                 <Grid item>
                     <Typography
-                        id="modal-modal-title"
                         variant="h5"
                         component="h5"
                     >
@@ -27,8 +33,9 @@ const FormLayout = ({onSubmit=()=>{}, title='', content=[]}) => {
                         fullWidth
                         variant='contained'
                         type='submit'
+                        disabled={disabled}
                     >
-                        Submit
+                        {label}
                     </Button>
                 </Grid>
             </FormGridProxy>
