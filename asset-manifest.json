@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/project-manager-client/static/js/main.80ce62cd.js",
+    "main.js": "/project-manager-client/static/js/main.142de593.js",
     "index.html": "/project-manager-client/index.html",
-    "main.80ce62cd.js.map": "/project-manager-client/static/js/main.80ce62cd.js.map"
+    "main.142de593.js.map": "/project-manager-client/static/js/main.142de593.js.map"
   },
   "entrypoints": [
-    "static/js/main.80ce62cd.js"
+    "static/js/main.142de593.js"
   ]
 }
