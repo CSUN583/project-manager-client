@@ -24,16 +24,12 @@ const ProjectsList = () => {
         <ListLayout
             headerColumns={[
                 {
-                    'width': 130,
+                    'width': 150,
                     'text': 'Name',
                 },
                 {
-                    'width': 60,
-                    'text': 'Start',
-                },
-                {
-                    'width': 60,
-                    'text': 'End',
+                    'width': 100,
+                    'text': 'End Date',
                 },
             ]}
             modal={<ProjectModal refetch={refetch}/>}
@@ -41,15 +37,11 @@ const ProjectsList = () => {
                 return {
                     'columns': [
                         {
-                            'width': 130,
+                            'width': 150,
                             'text': project.name
                         },
                         {
-                            'width': 60,
-                            'text': project.startTime
-                        },
-                        {
-                            'width': 60,
+                            'width': 100,
                             'text': project.endTime
                         },
                     ],

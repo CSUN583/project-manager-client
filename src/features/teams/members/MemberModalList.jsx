@@ -7,26 +7,17 @@ import Checkbox from '@mui/material/Checkbox';
 import LoadingCircle from "../../components/LoadingCircle";
 import {useQuery} from "@apollo/react-hooks";
 import {LIST_USERS} from "../../../gql";
-import {useContext, useState} from "react";
+import {useContext} from "react";
 import {TeamContext} from "../TeamsContext";
 
-const MemberModalList = () => {
+const MemberModalList = ({checked, setChecked}) => {
+
     const {teamId} = useContext(TeamContext)
 
-    const [checked, setChecked] = useState({});
-
-    const handleToggle = (key) => () => {
-        const new_checked = {...checked}
-        if (key in new_checked){
-            new_checked[key] = !new_checked[key]
-        }
-        else {
-            new_checked[key] = true
-        }
-        setChecked(new_checked)
-    }
-
-    const { error, loading, data } = useQuery(LIST_USERS);
+    const {error, loading, data } = useQuery(LIST_USERS, {
+        fetchPolicy: "network-only",
+        nextFetchPolicy: "network-only"}
+    )
 
     if (loading) return <LoadingCircle />
 
@@ -49,12 +40,24 @@ const MemberModalList = () => {
                         key={user.id}
                         disablePadding
                     >
-                        <ListItemButton role={undefined} onClick={handleToggle(user.id)} dense>
+                        <ListItemButton
+                            dense
+                            role={'checkbox'}
+                            onClick={() => {
+                                const new_checked = {...checked}
+                                if (user.id in new_checked){
+                                    new_checked[user.id] = !new_checked[user.id]
+                                }
+                                else {
+                                    new_checked[user.id] = !inTeam
+                                }
+                                setChecked(new_checked)
+                            }}
+                        >
                             <ListItemIcon>
                                 <Checkbox
-                                    disabled={inTeam}
                                     edge="start"
-                                    checked={!!checked[user.id] || inTeam}
+                                    checked={!!checked[user.id] || (!(user.id in checked) && inTeam)}
                                     tabIndex={user.id}
                                     disableRipple
                                     inputProps={{ 'aria-labelledby': user.id }}

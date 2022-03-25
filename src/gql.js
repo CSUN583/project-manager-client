@@ -104,3 +104,33 @@ export const GET_USER = gql`
             email,
         }
     }`
+
+export const ADD_USER_TO_TEAM = gql`
+    mutation AddUserToTeam($user_id: Int!, $team_id: Int!) {
+        addUserToTeam(user_id: $user_id, team_id: $team_id){id}
+    }`
+
+export const REMOVE_USER_FROM_TEAM = gql`
+    mutation RemoveUserFromTeam($user_id: Int!, $team_id: Int!) {
+        removeUserFromTeam(user_id: $user_id, team_id: $team_id){id}
+    }`
+
+export const CREATE_PROJECT = gql`
+    mutation CreateProject($name: String!, $description: String!, $startTime: String!, $endTime: String!) {
+        createProject(input: { name: $name, description: $description, startTime: $startTime, endTime: $endTime }) {id}
+    }`
+
+export const ADD_TEAM_TO_PROJECT = gql`
+    mutation AddTeamToProject($team_id: Long!, $project_id: Long!) {
+        addTeamToProject(team_id: $team_id, project_id: $project_id){id}
+    }`
+
+export const REMOVE_TEAM_TO_PROJECT = gql`
+    mutation RemoveTeamFromProject($team_id: Long!, $project_id: Long!) {
+        removeTeamFromProject(team_id: $team_id, project_id: $project_id){id}
+    }`
+
+export const CREATE_TICKET = gql`
+    mutation CreateTicket($name: String!, $description: String!, $point: String!, $status: Int!, $projectId: Int!) {
+        createTicket(input: { name: $name, description: $description, point: $point, status: $status, projectId: $projectId }) {id}
+    }`

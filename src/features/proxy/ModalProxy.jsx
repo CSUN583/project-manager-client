@@ -4,14 +4,14 @@ import Modal from "@mui/material/Modal";
 import ModalContainerProxy from "./ModalContainerProxy";
 import {Fragment} from "react";
 
-const ModalProxy = ({open, handleOpen, handleClose, children}) => {
+const ModalProxy = ({iconButton=<AddCircleOutline />, open, handleOpen, handleClose, children}) => {
     return (
         <Fragment>
             <IconButton
                 onClick={handleOpen}
                 color='primary'
             >
-                <AddCircleOutline />
+                {iconButton}
             </IconButton>
             <Modal
                 open={open}

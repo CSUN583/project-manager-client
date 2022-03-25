@@ -2,7 +2,6 @@ import {useQuery} from "@apollo/react-hooks";
 import {useContext} from "react";
 import {TeamContext} from "../TeamsContext";
 import {LIST_TEAM_MEMBERS} from "../../../gql";
-import LoadingCircle from "../../components/LoadingCircle";
 import MemberModal from "./MemberModal";
 import ListLayout from "../../layout/ListLayout";
 
@@ -16,12 +15,11 @@ const MembersList = () => {
 
     const {error, loading, data, refetch} = useQuery(LIST_TEAM_MEMBERS, {variables: {id: teamId}});
 
-    if (loading) return <LoadingCircle/>
-
     if (error) return null
 
     return (
         <ListLayout
+            loading={loading}
             headerColumns={[
                 {
                     'width': 125,

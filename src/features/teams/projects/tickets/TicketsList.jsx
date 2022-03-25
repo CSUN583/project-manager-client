@@ -1,4 +1,4 @@
-import {CircularProgress} from "@mui/material";
+import {Chip, CircularProgress} from "@mui/material";
 import {useContext} from "react";
 import {TeamContext} from "../../TeamsContext";
 import {useQuery} from "@apollo/react-hooks";
@@ -12,6 +12,24 @@ const TicketsList = () => {
 
     const handleClick = (id) => {
         setTeamTicketId(id)
+    }
+
+    const status_enum = {
+        0: "new",
+        1: "started",
+        2: "finished",
+        3: "accepted",
+        4: "denied ",
+        5: "delivered"
+    }
+
+    const color_enum = {
+        0: "primary",
+        1: "warning",
+        2: "success",
+        3: "secondary",
+        4: "error ",
+        5: "info"
     }
 
     const {error, loading, data, refetch} = useQuery(LIST_PROJECT_TICKETS, {variables: {id: teamProjectId}});
@@ -37,12 +55,17 @@ const TicketsList = () => {
                 return {
                     'columns': [
                         {
-                            'width': 125,
+                            'width': 160,
                             'text': ticket.name
                         },
                         {
-                            'width': 125,
-                            'text': ticket.status
+                            'width': 90,
+                            'component':
+                                <Chip
+                                    sx={{width: '90px'}}
+                                    label={status_enum[ticket.status]}
+                                    color={color_enum[ticket.status]}
+                                />
                         },
                     ],
                     'onClick': () => handleClick(ticket.id)

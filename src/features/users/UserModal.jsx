@@ -40,6 +40,8 @@ const UserModal = ({refetch}) => {
                 content={[
                     <TextField
                         required
+                        fullWidth
+                        inputProps={{maxLength: 15}}
                         autoComplete='off'
                         size='small'
                         id="text-field-user-name"
@@ -50,6 +52,8 @@ const UserModal = ({refetch}) => {
                     />,
                     <TextField
                         required
+                        fullWidth
+                        inputProps={{maxLength: 35}}
                         id="text-field-user-email"
                         autoComplete='off'
                         size='small'

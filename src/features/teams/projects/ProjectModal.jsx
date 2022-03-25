@@ -1,9 +1,12 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {TextField} from "@mui/material";
 import {DatePicker, LocalizationProvider} from "@mui/lab";
 import DateAdapter from '@mui/lab/AdapterDateFns';
 import ModalProxy from "../../proxy/ModalProxy";
 import FormLayout from "../../components/FormLayout";
+import {useMutation} from "@apollo/react-hooks";
+import {ADD_TEAM_TO_PROJECT, CREATE_PROJECT} from "../../../gql";
+import {TeamContext} from "../TeamsContext";
 
 
 const ProjectModal = ({refetch}) => {
@@ -11,13 +14,42 @@ const ProjectModal = ({refetch}) => {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+    const {teamId} = useContext(TeamContext)
+
     const [projectName, setProjectName] = useState('')
     const [projectDescription, setProjectDescription] = useState('')
     const [projectEndDate, setProjectEndDate] = useState('')
 
-    const handleSubmit = (e) => {
+    const [CreateProject] = useMutation(CREATE_PROJECT)
+    const [AddTeamToProject] = useMutation(ADD_TEAM_TO_PROJECT)
+
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        handleClose()
+
+        try{
+            const createProjectRes = await CreateProject({
+                variables: {
+                    name: projectName,
+                    description: projectDescription,
+                    startTime: new Date().toLocaleString().split(',')[0],
+                    endTime: new Date(projectEndDate).toLocaleString().split(',')[0]
+                }
+            })
+
+            const projectId = createProjectRes.data.createProject.id
+
+            if (!!projectId) {
+                AddTeamToProject({
+                    variables: {
+                        team_id: teamId,
+                        project_id: projectId,
+                    }
+                }).then(refetch)
+            }
+        }
+        finally {
+            handleClose()
+        }
     }
 
     const handleEndDateChange = (newValue) => {
@@ -37,6 +69,7 @@ const ProjectModal = ({refetch}) => {
                     <TextField
                         required
                         fullWidth
+                        inputProps={{maxLength: 15}}
                         autoComplete='off'
                         size='small'
                         id="text-field-project-name"
@@ -59,6 +92,7 @@ const ProjectModal = ({refetch}) => {
                     <TextField
                         required
                         fullWidth
+                        inputProps={{maxLength: 52}}
                         autoComplete='off'
                         size='small'
                         multiline

@@ -2,14 +2,7 @@ import React, {useContext} from "react";
 import {TeamContext} from "../../TeamsContext";
 import {useQuery} from "@apollo/react-hooks";
 import {GET_PROJECT_INFO, GET_TEAM_NAME, GET_TICKET} from "../../../../gql";
-import {Box, CircularProgress, Container, Grid, Typography} from "@mui/material";
-import Button from "@mui/material/Button";
-import ContentGridProxy from "../../../proxy/ContentGridProxy";
-import TopProxy from "../../../proxy/TopProxy";
-import BreadcrumbGridProxy from "../../../proxy/BreadcrumbGridProxy";
-import HeaderGridProxy from "../../../proxy/HeaderGridProxy";
-import TitleProxy from "../../../proxy/TitleProxy";
-import Title from "../../../components/Title";
+import {CircularProgress, Grid, Typography} from "@mui/material";
 import ContentLayout from "../../../layout/ContentLayout";
 
 const Ticket = () => {
@@ -34,13 +27,21 @@ const Ticket = () => {
         setTeamTicketId(null)
     };
 
-    const { error: projectError, loading: projectLoading, data: projectData } = useQuery(GET_PROJECT_INFO, {variables : {id: teamProjectId}});
+    const {
+        error: projectError,
+        loading: projectLoading,
+        data: projectData
+    } = useQuery(GET_PROJECT_INFO, {variables: {id: teamProjectId}});
 
-    const { error: teamError, loading: teamLoading, data: teamData } = useQuery(GET_TEAM_NAME, {variables : {id: teamId}});
+    const {error: teamError, loading: teamLoading, data: teamData} = useQuery(GET_TEAM_NAME, {variables: {id: teamId}});
 
-    const { error: ticketError, loading: ticketLoading, data: ticketData } = useQuery(GET_TICKET, {variables : {id: teamId}});
+    const {
+        error: ticketError,
+        loading: ticketLoading,
+        data: ticketData
+    } = useQuery(GET_TICKET, {variables: {id: teamId}});
 
-    if (projectLoading || teamLoading || ticketLoading) return <CircularProgress />
+    if (projectLoading || teamLoading || ticketLoading) return <CircularProgress/>
 
     if (projectError || teamError || ticketError) return null
 
@@ -48,7 +49,7 @@ const Ticket = () => {
         <ContentLayout
             breadcrumb={[
                 {
-                   'onClick': handleBreadcrumTeamChange,
+                    'onClick': handleBreadcrumTeamChange,
                     'text': 'Teams >'
                 },
                 {
@@ -74,7 +75,7 @@ const Ticket = () => {
                             variant='body2'
                         >
                             Points:
-                            <br />
+                            <br/>
                             {ticketData.ticket.point}
                         </Typography>
                     </Grid>
@@ -83,7 +84,7 @@ const Ticket = () => {
                             variant='body2'
                         >
                             Status:
-                            <br />
+                            <br/>
                             {ticketData.ticket.status}
                         </Typography>
                     </Grid>

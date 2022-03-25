@@ -24,7 +24,7 @@ const ProjectInfo = ({projectData}) => {
                             <Typography
                                 variant='body2'
                             >
-                                Start&nbsp;Time:
+                                Start&nbsp;Date:
                                 <br />
                                 {startTime}
                             </Typography>
@@ -33,7 +33,7 @@ const ProjectInfo = ({projectData}) => {
                             <Typography
                                 variant='body2'
                             >
-                                End&nbsp;Time:
+                                End&nbsp;Date:
                                 <br />
                                 {endTime}
                             </Typography>
@@ -41,13 +41,30 @@ const ProjectInfo = ({projectData}) => {
                     </Grid>
                 </Grid>
                 <Grid item>
-                    <Typography
-                        variant='body2'
+                    <Grid
+                        container
+                        direction='column'
                     >
-                        Description:
-                        <br />
-                        {description}
-                    </Typography>
+                        <Grid item>
+                            <Typography
+                                variant='body2'
+                            >
+                                Summary:
+                            </Typography>
+                        </Grid>
+                        <Grid item>
+                            <Box
+                                width={300}
+                            >
+                                <Typography
+                                    style={{overflowWrap: 'break-word'}}
+                                    variant='body2'
+                                >
+                                    {description}
+                                </Typography>
+                            </Box>
+                        </Grid>
+                    </Grid>
                 </Grid>
             </Grid>
         </Box>

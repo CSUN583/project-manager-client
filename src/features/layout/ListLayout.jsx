@@ -4,12 +4,14 @@ import ListGridProxy from "../proxy/ListTextGridProxy";
 import ListContentGridProxy from "../proxy/ListRowGridProxy";
 import Button from "@mui/material/Button";
 import ListTextColumn from "../components/ListTextColumn";
+import LoadingCircle from "../components/LoadingCircle";
 
 const ListLayout = (
     {
         headerColumns=[],
         modal=<></>,
-        data=[]
+        data=[],
+        loading=false
     }) => {
     return (
         <ListContainerProxy>
@@ -37,36 +39,39 @@ const ListLayout = (
                 />
             </ListItem>
             <Divider />
-            {data?.map( (context, i) =>
-                <ListItem key={i}>
-                    <ListItemText
-                        primary = {
-                            <ListGridProxy>
-                                <Grid item>
-                                    <ListContentGridProxy>
-                                        {context?.columns.map((col, i) =>
-                                            <Grid key={i} item>
-                                                <ListTextColumn
-                                                    width={col.width}
-                                                    text={col.text}
-                                                />
-                                            </Grid>
-                                        )}
-                                    </ListContentGridProxy>
-                                </Grid>
-                                <Grid item>
-                                    <Button
-                                        onClick={context.onClick}
-                                        size='small'
-                                    >
-                                        View
-                                    </Button>
-                                </Grid>
-                            </ListGridProxy>
-                        }
-                    />
-                </ListItem>
-            )}
+            {loading ? <LoadingCircle/> :
+                data?.map((context, i) =>
+                    <ListItem key={i}>
+                        <ListItemText
+                            primary={
+                                <ListGridProxy>
+                                    <Grid item>
+                                        <ListContentGridProxy>
+                                            {context?.columns.map((col, i) =>
+                                                <Grid key={i} item>
+                                                    <ListTextColumn
+                                                        width={col.width}
+                                                        text={col.text}
+                                                        component={col.component}
+                                                    />
+                                                </Grid>
+                                            )}
+                                        </ListContentGridProxy>
+                                    </Grid>
+                                    <Grid item>
+                                        <Button
+                                            onClick={context.onClick}
+                                            size='small'
+                                        >
+                                            View
+                                        </Button>
+                                    </Grid>
+                                </ListGridProxy>
+                            }
+                        />
+                    </ListItem>
+                )
+            }
         </ListContainerProxy>
     );
 };
