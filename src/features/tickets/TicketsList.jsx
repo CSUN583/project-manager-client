@@ -1,9 +1,9 @@
 import {Chip, CircularProgress} from "@mui/material";
 import {useContext} from "react";
-import {TeamContext} from "../../TeamsContext";
+import {TeamContext} from "../teams/TeamsContext";
 import {useQuery} from "@apollo/react-hooks";
-import {LIST_PROJECT_TICKETS} from "../../../../gql";
-import ListLayout from "../../../layout/ListLayout";
+import {LIST_PROJECT_TICKETS} from "../../gql";
+import ListLayout from "../layout/ListLayout";
 import TicketModal from "./TicketModal";
 import {ticket_color_enum, ticket_status_enum} from "./Ticket";
 

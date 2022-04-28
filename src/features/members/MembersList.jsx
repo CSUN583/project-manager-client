@@ -1,9 +1,9 @@
 import {useQuery} from "@apollo/react-hooks";
 import {useContext} from "react";
-import {TeamContext} from "../TeamsContext";
-import {LIST_TEAM_MEMBERS} from "../../../gql";
+import {TeamContext} from "../teams/TeamsContext";
+import {LIST_TEAM_MEMBERS} from "../../gql";
 import MemberModal from "./MemberModal";
-import ListLayout from "../../layout/ListLayout";
+import ListLayout from "../layout/ListLayout";
 
 
 const MembersList = () => {

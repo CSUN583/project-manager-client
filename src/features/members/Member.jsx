@@ -1,9 +1,9 @@
 import {useContext} from "react";
-import {TeamContext} from "../TeamsContext";
+import {TeamContext} from "../teams/TeamsContext";
 import {useQuery} from "@apollo/react-hooks";
-import {GET_TEAM_NAME, GET_USER} from "../../../gql";
+import {GET_TEAM_NAME, GET_USER} from "../../gql";
 import {CircularProgress} from "@mui/material";
-import ContentLayout from "../../layout/ContentLayout";
+import ContentLayout from "../layout/ContentLayout";
 
 const Member = () => {
     const {teamId, setTeamId, teamMemberId, setTeamMemberId} = useContext(TeamContext)

@@ -1,10 +1,10 @@
 import {useContext, useState} from "react";
 import {MenuItem, TextField} from "@mui/material";
-import {TeamContext} from "../../TeamsContext";
+import {TeamContext} from "../teams/TeamsContext";
 import {useMutation} from "@apollo/react-hooks";
-import {CREATE_TICKET} from "../../../../gql";
-import ModalProxy from "../../../proxy/ModalProxy";
-import FormLayout from "../../../layout/FormLayout";
+import {CREATE_TICKET} from "../../gql";
+import ModalProxy from "../proxy/ModalProxy";
+import FormLayout from "../layout/FormLayout";
 
 
 const TicketModal = ({refetch}) => {

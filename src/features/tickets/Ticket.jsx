@@ -1,11 +1,11 @@
 import React, {memo, useContext, useState} from "react";
-import {TeamContext} from "../../TeamsContext";
+import {TeamContext} from "../teams/TeamsContext";
 import {useQuery} from "@apollo/react-hooks";
-import {GET_PROJECT_INFO, GET_TEAM_NAME, GET_TICKET, LIST_USERS} from "../../../../gql";
+import {GET_PROJECT_INFO, GET_TEAM_NAME, GET_TICKET, LIST_USERS} from "../../gql";
 import {Box, Container, Grid, MenuItem, TextField} from "@mui/material";
-import ContentLayout from "../../../layout/ContentLayout";
-import FormLayout from "../../../layout/FormLayout";
-import LoadingCircle from "../../../components/LoadingCircle";
+import ContentLayout from "../layout/ContentLayout";
+import FormLayout from "../layout/FormLayout";
+import LoadingCircle from "../components/LoadingCircle";
 
 export const ticket_status_enum = {
     0: "new",

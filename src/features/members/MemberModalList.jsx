@@ -4,11 +4,11 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
-import LoadingCircle from "../../components/LoadingCircle";
+import LoadingCircle from "../components/LoadingCircle";
 import {useQuery} from "@apollo/react-hooks";
-import {LIST_USERS} from "../../../gql";
+import {LIST_USERS} from "../../gql";
 import {useContext} from "react";
-import {TeamContext} from "../TeamsContext";
+import {TeamContext} from "../teams/TeamsContext";
 
 const MemberModalList = ({checked, setChecked}) => {
 

@@ -1,11 +1,11 @@
 import {useContext} from "react";
-import {TeamContext} from "../TeamsContext";
+import {TeamContext} from "../teams/TeamsContext";
 import {useQuery} from "@apollo/react-hooks";
-import {GET_PROJECT_INFO, GET_TEAM_NAME} from "../../../gql";
-import TicketsList from "./tickets/TicketsList";
+import {GET_PROJECT_INFO, GET_TEAM_NAME} from "../../gql";
+import TicketsList from "../tickets/TicketsList";
 import ProjectInfo from "./ProjectInfo";
-import LoadingCircle from "../../components/LoadingCircle";
-import ContentLayout from "../../layout/ContentLayout";
+import LoadingCircle from "../components/LoadingCircle";
+import ContentLayout from "../layout/ContentLayout";
 
 
 const Project = () => {

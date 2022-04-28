@@ -1,10 +1,10 @@
 import {useQuery} from "@apollo/react-hooks";
 import {useContext} from "react";
-import {TeamContext} from "../TeamsContext";
-import {LIST_TEAM_PROJECTS} from "../../../gql";
+import {TeamContext} from "../teams/TeamsContext";
+import {LIST_TEAM_PROJECTS} from "../../gql";
 import ProjectModal from "./ProjectModal";
-import LoadingCircle from "../../components/LoadingCircle";
-import ListLayout from "../../layout/ListLayout";
+import LoadingCircle from "../components/LoadingCircle";
+import ListLayout from "../layout/ListLayout";
 
 
 const ProjectsList = () => {

@@ -2,9 +2,9 @@ import {useContext} from "react";
 import {TeamContext} from "./TeamsContext";
 import Teams from "./Teams";
 import Team from "./Team";
-import Project from "./projects/Project";
-import Member from "./members/Member";
-import Ticket from "./projects/tickets/Ticket";
+import Project from "../projects/Project";
+import Member from "../members/Member";
+import Ticket from "../tickets/Ticket";
 
 const TeamsNavigation = () => {
     const {teamId, teamProjectId, teamMemberId, teamTicketId } = useContext(TeamContext)

@@ -2,11 +2,11 @@ import {useContext, useState} from "react";
 import {TextField} from "@mui/material";
 import {DatePicker, LocalizationProvider} from "@mui/lab";
 import DateAdapter from '@mui/lab/AdapterDateFns';
-import ModalProxy from "../../proxy/ModalProxy";
-import FormLayout from "../../layout/FormLayout";
+import ModalProxy from "../proxy/ModalProxy";
+import FormLayout from "../layout/FormLayout";
 import {useMutation} from "@apollo/react-hooks";
-import {ADD_TEAM_TO_PROJECT, CREATE_PROJECT} from "../../../gql";
-import {TeamContext} from "../TeamsContext";
+import {ADD_TEAM_TO_PROJECT, CREATE_PROJECT} from "../../gql";
+import {TeamContext} from "../teams/TeamsContext";
 
 
 const ProjectModal = ({refetch}) => {
