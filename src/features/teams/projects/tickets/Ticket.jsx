@@ -2,7 +2,7 @@ import React, {memo, useContext, useState} from "react";
 import {TeamContext} from "../../TeamsContext";
 import {useQuery} from "@apollo/react-hooks";
 import {GET_PROJECT_INFO, GET_TEAM_NAME, GET_TICKET, LIST_USERS} from "../../../../gql";
-import {Box, Container, MenuItem, TextField} from "@mui/material";
+import {Box, Container, Grid, MenuItem, TextField} from "@mui/material";
 import ContentLayout from "../../../layout/ContentLayout";
 import FormLayout from "../../../layout/FormLayout";
 import LoadingCircle from "../../../components/LoadingCircle";
@@ -96,58 +96,69 @@ const Ticket = memo(() => {
                             onSubmit={handleSubmit}
                             content={
                                 [
-                                    <TextField
-                                        id="ticket-text-field-ticket-owner"
-                                        select
-                                        fullWidth
-                                        label="Owner"
-                                        value={ticketOwner ? ticketOwner : ticketData?.ticket?.owners[0]?.name}
-                                        onChange={e => setTicketOwner(e.target.value)}
-                                        variant="standard"
-                                        InputProps={{ disableUnderline: true }}
+                                    <Grid
+                                        container
+                                        justifyContent='space-between'
+                                        alignItems='center'
                                     >
-                                        {userData?.users?.map( (user, i) =>
-                                            <MenuItem key={i} value={user.name} dense>
-                                                {user.name}
-                                            </MenuItem>
-                                        )}
-                                    </TextField>,
-                                    <TextField
-                                        id="ticket-text-field-ticket-point"
-                                        select
-                                        fullWidth
-                                        label="Points"
-                                        value={ticketPoint ? ticketPoint : ticketData?.ticket?.point}
-                                        onChange={e => setTicketPoint(e.target.value)}
-                                        variant="standard"
-                                        InputProps={{ disableUnderline: true }}
-                                    >
-                                        {Array.from(Array(5).keys()).map(n => (
-                                            <MenuItem key={n} value={n + 1} dense>
-                                                {n + 1}
-                                            </MenuItem>
-                                        ))}
-                                    </TextField>,
-                                    <TextField
-                                        id="ticket-text-field-ticket-status"
-                                        select
-                                        fullWidth
-                                        label="Status"
-                                        value={ticketStatus ? ticketStatus : ticketData?.ticket?.status}
-                                        onChange={e => setTicketStatus(e.target.value)}
-                                        variant="standard"
-                                        InputProps={{ disableUnderline: true }}
-                                    >
-                                        {Array.from(Array(6).keys()).map(n => (
-                                            <MenuItem
-                                                key={n}
-                                                value={n}
-                                                dense
+                                        <Grid item>
+                                            <TextField
+                                                select
+                                                fullWidth
+                                                label="Owner"
+                                                sx={{width: '16ch'}}
+                                                value={ticketOwner ? ticketOwner : ticketData?.ticket?.owners[0]?.name || ''}
+                                                onChange={e => setTicketOwner(e.target.value)}
+                                                variant="standard"
+                                                InputProps={{ disableUnderline: true }}
                                             >
-                                                {ticket_status_enum[n]}
-                                            </MenuItem>
-                                        ))}
-                                    </TextField>,
+                                                {userData?.users?.map( (user, i) =>
+                                                    <MenuItem key={i} value={user.name} dense>
+                                                        {user.name}
+                                                    </MenuItem>
+                                                )}
+                                            </TextField>
+                                        </Grid>
+                                        <Grid item>
+                                            <TextField
+                                                select
+                                                fullWidth
+                                                label="Points"
+                                                sx={{width: '5ch'}}
+                                                value={ticketPoint ? ticketPoint : ticketData?.ticket?.point}
+                                                onChange={e => setTicketPoint(e.target.value)}
+                                                variant="standard"
+                                                InputProps={{ disableUnderline: true }}
+                                            >
+                                                {Array.from(Array(5).keys()).map(n => (
+                                                    <MenuItem key={n} value={n + 1} dense>
+                                                        {n + 1}
+                                                    </MenuItem>
+                                                ))}
+                                            </TextField>
+                                        </Grid>
+                                        <Grid item>
+                                            <TextField
+                                                select
+                                                fullWidth
+                                                label="Status"
+                                                value={ticketStatus ? ticketStatus : ticketData?.ticket?.status}
+                                                onChange={e => setTicketStatus(e.target.value)}
+                                                variant="standard"
+                                                InputProps={{ disableUnderline: true }}
+                                            >
+                                                {Array.from(Array(6).keys()).map(n => (
+                                                    <MenuItem
+                                                        key={n}
+                                                        value={n}
+                                                        dense
+                                                    >
+                                                        {ticket_status_enum[n]}
+                                                    </MenuItem>
+                                                ))}
+                                            </TextField>
+                                        </Grid>
+                                    </Grid>,
                                     <TextField
                                         required
                                         fullWidth
