@@ -48,6 +48,7 @@ const TicketsList = () => {
                                     sx={{width: '90px'}}
                                     label={ticket_status_enum[ticket.status]}
                                     color={ticket_color_enum[ticket.status]}
+                                    variant='outlined'
                                 />
                         },
                     ],
