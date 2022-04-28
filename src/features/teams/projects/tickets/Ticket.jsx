@@ -1,10 +1,10 @@
-import React, {Fragment, memo, useContext, useState} from "react";
+import React, {memo, useContext, useState} from "react";
 import {TeamContext} from "../../TeamsContext";
 import {useQuery} from "@apollo/react-hooks";
 import {GET_PROJECT_INFO, GET_TEAM_NAME, GET_TICKET, LIST_USERS} from "../../../../gql";
-import {Box, Chip, CircularProgress, Container, Grid, MenuItem, TextField, Typography} from "@mui/material";
+import {Box, Container, MenuItem, TextField} from "@mui/material";
 import ContentLayout from "../../../layout/ContentLayout";
-import FormLayout from "../../../components/FormLayout";
+import FormLayout from "../../../layout/FormLayout";
 import LoadingCircle from "../../../components/LoadingCircle";
 
 export const ticket_status_enum = {
@@ -67,15 +67,15 @@ const Ticket = memo(() => {
             breadcrumb={[
                 {
                     'onClick': handleBreadcrumTeamChange,
-                    'text': 'Teams >'
+                    'text': 'Teams'
                 },
                 {
                     'onClick': handleBreadcrumProjectChange,
-                    'text': `${teamData?.team?.prefix} >`
+                    'text': `${teamData?.team?.prefix}`
                 },
                 {
                     'onClick': handleBreadcrumTicketChange,
-                    'text': `${projectData?.project?.name} >`
+                    'text': `${projectData?.project?.name}`
                 },
                 {
                     'text': `${ticketData?.ticket?.name}`,
@@ -101,7 +101,7 @@ const Ticket = memo(() => {
                                         select
                                         fullWidth
                                         label="Owner"
-                                        value={ticketOwner ? ticketOwner : ticketData?.ticket?.owners[0].name}
+                                        value={ticketOwner ? ticketOwner : ticketData?.ticket?.owners[0]?.name}
                                         onChange={e => setTicketOwner(e.target.value)}
                                         variant="standard"
                                         InputProps={{ disableUnderline: true }}

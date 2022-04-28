@@ -37,11 +37,11 @@ const Project = () => {
             breadcrumb={[
                 {
                     'onClick': handleBreadcrumbTeamChange,
-                    'text': 'Teams >'
+                    'text': 'Teams'
                 },
                 {
                     'onClick': handleBreadcrumbProjectChange,
-                    'text': `${teamData?.team?.prefix} >`
+                    'text': `${teamData?.team?.prefix}`
                 },
                 {
                     'text': projectData?.project?.name,

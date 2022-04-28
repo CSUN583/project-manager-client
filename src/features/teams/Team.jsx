@@ -33,7 +33,7 @@ const Team = () => {
             breadcrumb={[
                 {
                     'onClick': handleBreadcrumChange,
-                    'text': 'Teams >'
+                    'text': 'Teams'
                 },
                 {
                     'text': data?.team?.prefix,

@@ -1,8 +1,7 @@
-import {Grid} from "@mui/material";
+import {Breadcrumbs, Grid} from "@mui/material";
 import Breadcrumb from "../components/Breadcrumb";
 import ContentGridProxy from "../proxy/ContentGridProxy";
 import TopProxy from "../proxy/TopProxy";
-import BreadcrumbGridProxy from "../proxy/BreadcrumbGridProxy";
 import HeaderGridProxy from "../proxy/HeaderGridProxy";
 import TitleProxy from "../proxy/TitleProxy";
 import Title from "../components/Title";
@@ -21,17 +20,16 @@ const ContentLayout = (
             <Grid item>
                 <TopProxy>
                     <Grid item>
-                        <BreadcrumbGridProxy>
+                        <Breadcrumbs>
                             {breadcrumb?.map((path, i) =>
-                                <Grid key={i} item>
-                                    <Breadcrumb
-                                        onClick={path?.onClick}
-                                        text={path?.text}
-                                        disabled={path?.disabled}
-                                    />
-                                </Grid>
+                                <Breadcrumb
+                                    key={i}
+                                    onClick={path?.onClick}
+                                    text={path?.text}
+                                    disabled={path?.disabled}
+                                />
                             )}
-                        </BreadcrumbGridProxy>
+                        </Breadcrumbs>
                     </Grid>
                     <Grid item>
                         <HeaderGridProxy>

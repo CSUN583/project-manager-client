@@ -24,7 +24,7 @@ const User = () => {
             breadcrumb={[
                 {
                     'onClick': handleBreadcrumChange,
-                    'text': 'Users >'
+                    'text': 'Users'
                 },
                 {
                     'text': data.user.name,

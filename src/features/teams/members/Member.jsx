@@ -34,11 +34,11 @@ const Member = () => {
             breadcrumb={[
                 {
                     'onClick': handleBreadcrumTeamChange,
-                    'text': 'Teams >'
+                    'text': 'Teams'
                 },
                 {
                     'onClick': handleBreadcrumMemberChange,
-                    'text': `${teamData?.team?.prefix} >`
+                    'text': `${teamData?.team?.prefix}`
                 },
                 {
                     'text': memberData?.user?.name,

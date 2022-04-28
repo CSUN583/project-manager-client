@@ -4,7 +4,7 @@ import {TeamContext} from "../../TeamsContext";
 import {useMutation} from "@apollo/react-hooks";
 import {CREATE_TICKET} from "../../../../gql";
 import ModalProxy from "../../../proxy/ModalProxy";
-import FormLayout from "../../../components/FormLayout";
+import FormLayout from "../../../layout/FormLayout";
 
 
 const TicketModal = ({refetch}) => {

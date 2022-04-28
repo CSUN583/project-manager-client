@@ -3,7 +3,7 @@ import {TextField} from "@mui/material";
 import {useMutation} from "@apollo/react-hooks";
 import {CREATE_USER} from "../../gql";
 import ModalProxy from "../proxy/ModalProxy";
-import FormLayout from "../components/FormLayout";
+import FormLayout from "../layout/FormLayout";
 
 const UserModal = ({refetch}) => {
     const [open, setOpen] = useState(false);

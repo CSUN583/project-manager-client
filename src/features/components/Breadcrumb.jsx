@@ -7,6 +7,7 @@ const Breadcrumb = ({onClick = ()=>{}, text = '', disabled = false}) => {
         return (
             <Typography
                 variant='body2'
+                fontWeight='bold'
             >
                 {text}
             </Typography>
@@ -14,8 +15,12 @@ const Breadcrumb = ({onClick = ()=>{}, text = '', disabled = false}) => {
     }
     return (
         <Button
-            disabled={disabled}
             size='small'
+            disableRipple
+            disableFocusRipple
+            variant='text'
+            sx={{ minHeight: 0, minWidth: 0, padding: 0, backgroundColor: 'transparent' }}
+            disabled={disabled}
             onClick={onClick}
         >
             {text}
