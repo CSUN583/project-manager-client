@@ -1,3 +1,5 @@
+![CI/CD](https://github.com/rosealexander/react-mui-workshop/actions/workflows/main.yml/badge.svg)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -72,3 +74,8 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+[![MIT License][license-shield]][license-url]
+
+[license-shield]: https://img.shields.io/github/license/CSUN583/project-manager-client.svg?style=for-the-badge
+[license-url]: https://github.com/CSUN583/project-manager-client/blob/master/LICENSE
