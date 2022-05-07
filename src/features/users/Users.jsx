@@ -1,30 +1,14 @@
-import { Container, Grid, Typography} from "@mui/material";
 import UsersList from "./UsersList";
+import ContentLayout from "../layout/ContentLayout";
 
 
 const Users = () => {
-
     return (
-        <Container
-            disableGutters
-        >
-            <Grid
-                container
-                direction='column'
-            >
-                <Grid item>
-                    <Typography
-                        variant='h3'
-                    >
-                        Users
-                    </Typography>
-                </Grid>
-                <Grid item>
-                    <UsersList />
-                </Grid>
-            </Grid>
-        </Container>
-    );
+        <ContentLayout
+            title={'Users'}
+            list={<UsersList />}
+        />
+    )
 };
 
 export default Users;

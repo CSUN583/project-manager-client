@@ -1,27 +1,25 @@
-import {CircularProgress} from "@mui/material";
-import {useContext} from "react";
-import {UserContext} from "./UsersContext";
-import UserModal from "./UserModal";
 import {useQuery} from "@apollo/react-hooks";
-import {LIST_USERS} from "../../gql";
+import {useContext} from "react";
+import {TeamContext} from "../teams/TeamsContext";
+import {LIST_TEAM_MEMBERS} from "../../gql";
+import MemberModal from "./MemberModal";
 import ListLayout from "../layout/ListLayout";
 
 
-const UsersList = () => {
-    const [userId, setUserId] = useContext(UserContext)
+const MembersList = () => {
+    const {teamId, setTeamMemberId} = useContext(TeamContext)
 
     const handleClick = (id) => {
-        setUserId(id)
+        setTeamMemberId(id)
     }
 
-    const {error, loading, data, refetch} = useQuery(LIST_USERS);
-
-    if (loading) return <CircularProgress/>
+    const {error, loading, data, refetch} = useQuery(LIST_TEAM_MEMBERS, {variables: {id: teamId}});
 
     if (error) return null
 
     return (
         <ListLayout
+            loading={loading}
             headerColumns={[
                 {
                     'width': 125,
@@ -32,24 +30,25 @@ const UsersList = () => {
                     'text': 'Email',
                 },
             ]}
-            modal={<UserModal refetch={refetch}/>}
-            data={data?.users?.map(user => {
+            modal={<MemberModal refetch={refetch}/>}
+            data={data?.team?.members?.map(member => {
                 return {
                     'columns': [
                         {
                             'width': 125,
-                            'text': user.name
+                            'text': member.name
                         },
                         {
                             'width': 125,
-                            'text': user.email
+                            'text': member.email
                         },
                     ],
-                    'onClick': () => handleClick(user.id)
+                    'onClick': () => handleClick(member.id)
                 }
             })}
         />
     );
 };
 
-export default UsersList;
+export default MembersList;
+
