@@ -1,19 +1,10 @@
-import {
-    Box,
-    CircularProgress,
-    Divider,
-    Grid,
-    List,
-    ListItem,
-    ListItemText,
-    Typography
-} from "@mui/material";
 import {useContext} from "react";
-import {TeamContext} from "./TeamsPage";
-import Button from "@mui/material/Button";
-import AddTeamModal from "./AddTeamModal";
+import {TeamContext} from "./TeamsContext";
+import TeamModal from "./TeamModal";
 import {useQuery} from "@apollo/react-hooks";
 import {LIST_TEAMS} from "../../gql";
+import LoadingCircle from "../components/LoadingCircle";
+import ListLayout from "../layout/ListLayout";
 
 
 const TeamsList = () => {
@@ -23,115 +14,41 @@ const TeamsList = () => {
         setTeamId(id)
     }
 
-    const { error, loading, data, refetch } = useQuery(LIST_TEAMS);
+    const {error, loading, data, refetch} = useQuery(LIST_TEAMS);
 
-    if (loading) return <CircularProgress />
+    if (loading) return <LoadingCircle/>
 
     if (error) return null
 
     return (
-        <List>
-            <ListItem>
-                <ListItemText
-                    primary ={
-                        <Grid
-                            container
-                            wrap='nowrap'
-                            justifyContent='space-between'
-                            alignItems='center'
-                        >
-                            <Grid item>
-                                <Grid
-                                    container
-                                    wrap='nowrap'
-                                >
-                                    <Grid item>
-                                        <Box
-                                            width={100}
-                                        >
-                                            <Typography
-                                                variant='caption'
-                                            >
-                                                Prefix
-                                            </Typography>
-                                        </Box>
-                                    </Grid>
-                                    <Grid item>
-                                        <Box
-                                            width={150}
-                                        >
-                                            <Typography
-                                                variant='caption'
-                                            >
-                                                Name
-                                            </Typography>
-                                        </Box>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                            <Grid item>
-                                <AddTeamModal refetch={refetch}/>
-                            </Grid>
-                        </Grid>
-                    }
-                />
-            </ListItem>
-            <Divider />
-            {data?.teams?.map( t =>
-                <ListItem
-                    key={t.id}
-                >
-                    <ListItemText
-                        primary = {
-                            <Grid
-                                container
-                                wrap='nowrap'
-                                justifyContent='space-between'
-                                alignItems='center'
-                            >
-                                <Grid item>
-                                    <Grid
-                                        container
-                                        wrap='nowrap'
-                                    >
-                                        <Grid item>
-                                            <Box
-                                                width={100}
-                                            >
-                                                <Typography
-                                                    variant='body2'
-                                                >
-                                                    {t.prefix}
-                                                </Typography>
-                                            </Box>
-                                        </Grid>
-                                        <Grid item>
-                                            <Box
-                                                width={150}
-                                            >
-                                                <Typography
-                                                    variant='body2'
-                                                >
-                                                    {t.name}
-                                                </Typography>
-                                            </Box>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                                <Grid item>
-                                    <Button
-                                        onClick={() => handleClick(t.id)}
-                                        size='small'
-                                    >
-                                        View
-                                    </Button>
-                                </Grid>
-                            </Grid>
-                        }
-                    />
-                </ListItem>
-            )}
-        </List>
+        <ListLayout
+            headerColumns={[
+                {
+                    'width': 100,
+                    'text': 'Prefix',
+                },
+                {
+                    'width': 150,
+                    'text': 'Name',
+                },
+            ]}
+            modal={<TeamModal refetch={refetch}/>}
+            data={data?.teams?.map(team => {
+                return {
+                    'columns': [
+                        {
+                            'width': 100,
+                            'text': team.prefix
+                        },
+                        {
+                            'width': 150,
+                            'text': team.name
+                        },
+                    ],
+                    'onClick': () => handleClick(team.id)
+                }
+            })}
+        />
     );
 };
 

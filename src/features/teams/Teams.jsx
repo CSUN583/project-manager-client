@@ -1,28 +1,14 @@
-import { Container, Grid, Typography} from "@mui/material";
 import TeamsList from "./TeamsList";
+import ContentLayout from "../layout/ContentLayout";
 
 
 const Teams = () => {
-
     return (
-        <Container
-            disableGutters
-        >
-            <Grid
-                container
-                direction='column'
-            >
-                <Grid item>
-                    <Typography variant='h3'>
-                        Teams
-                    </Typography>
-                </Grid>
-                <Grid item>
-                    <TeamsList />
-                </Grid>
-            </Grid>
-        </Container>
-    );
+        <ContentLayout
+            title='Teams'
+            list={<TeamsList />}
+        />
+    )
 };
 
 export default Teams;

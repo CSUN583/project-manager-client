@@ -2,17 +2,17 @@ import {Box, Container, Grid} from "@mui/material";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import {createContext, useState} from "react";
-import Pages from "./Pages";
+import PageNavigation from "./PageNavigation";
 
 export const LayoutContext = createContext([]);
 
-const Layout = () => {
+const Page = () => {
     const [layout, setLayout] = useState('teams')
 
     return (
         <LayoutContext.Provider value={[layout, setLayout]}>
             <Container
-                maxWidth='xs'
+                maxWidth='sm'
             >
                 <Box
                     display='flex'
@@ -31,7 +31,7 @@ const Layout = () => {
                             <Navbar />
                         </Grid>
                         <Grid item>
-                            <Pages />
+                            <PageNavigation />
                         </Grid>
                     </Grid>
                     <Footer />
@@ -41,4 +41,4 @@ const Layout = () => {
     )
 }
 
-export default Layout
+export default Page

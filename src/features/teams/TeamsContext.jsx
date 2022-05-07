@@ -1,9 +1,9 @@
 import {createContext, useState} from "react";
-import TeamsPageNavigation from "./TeamsPageNavigation";
+import TeamsNavigation from "./TeamsNavigation";
 
 export const TeamContext = createContext([]);
 
-const TeamsPage = () => {
+const TeamsContext = () => {
     const [teamId, setTeamId] = useState(null);
     const [teamProjectId, setTeamProjectId] = useState(null);
     const [teamMemberId, setTeamMemberId] = useState(null);
@@ -16,9 +16,9 @@ const TeamsPage = () => {
             teamMemberId, setTeamMemberId,
             teamTicketId, setTeamTicketId
         }}>
-            <TeamsPageNavigation />
+            <TeamsNavigation />
         </TeamContext.Provider>
     )
 };
 
-export default TeamsPage;
+export default TeamsContext;
