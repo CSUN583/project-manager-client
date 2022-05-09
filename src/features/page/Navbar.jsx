@@ -3,10 +3,12 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import ThemeToggle from "../theme/ThemeToggle";
 import {Grid, Typography} from "@mui/material";
 import {useContext} from "react";
-import {LayoutContext} from "./Page";
+import {LayoutContext, SpeechContext} from "./Page";
+import Voice from "../components/Voice";
 
 
 const Navbar = () => {
+    const [speech, setSpeech] = useContext(SpeechContext)
     const [layout, setLayout] = useContext(LayoutContext)
 
     const handleChange = (event, newValue) => {
@@ -21,13 +23,24 @@ const Navbar = () => {
             justifyContent='space-between'
         >
             <Grid item>
-                <Typography
-                    variant='body1'
-                    sx={{fontWeight: 'bold'}}
-                    color='secondary'
+                <Grid
+                    container
+                    wrap='nowrap'
+                    alignItems='center'
                 >
-                    COMP583
-                </Typography>
+                    <Grid item>
+                        <Typography
+                            variant='body1'
+                            sx={{fontWeight: 'bold'}}
+                            color='secondary'
+                        >
+                            COMP583
+                        </Typography>
+                    </Grid>
+                    <Grid item>
+                        <Voice text={speech}/>
+                    </Grid>
+                </Grid>
             </Grid>
             <Grid item>
                 <Grid
