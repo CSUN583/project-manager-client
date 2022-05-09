@@ -11,7 +11,8 @@ const ListLayout = (
         headerColumns=[],
         modal=<></>,
         data=[],
-        loading=false
+        loading=false,
+        disabled=false
     }) => {
     return (
         <ListContainerProxy>
@@ -58,14 +59,16 @@ const ListLayout = (
                                             )}
                                         </ListRowGridProxy>
                                     </Grid>
-                                    <Grid item>
-                                        <Button
-                                            onClick={context.onClick}
-                                            size='small'
-                                        >
-                                            View
-                                        </Button>
-                                    </Grid>
+                                    {!disabled &&
+                                        <Grid item>
+                                            <Button
+                                                onClick={context.onClick}
+                                                size='small'
+                                            >
+                                                View
+                                            </Button>
+                                        </Grid>
+                                    }
                                 </ListTextGridProxy>
                             }
                         />

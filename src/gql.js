@@ -5,6 +5,21 @@ export const GET_USER = gql`
         user(id: $id) {
             name,
             email,
+            tickets{
+                id,
+                name,
+                description,
+                status,
+                project{
+                    id,
+                    name
+                }
+            },
+            teams{
+                id,
+                name,
+                prefix,
+            },
         }
     }`
 
@@ -157,6 +172,23 @@ export const CREATE_TICKET = gql`
             name: $name, description: $description, point: $point, status: $status, projectId: $projectId
         })
         {
+            id
+        }
+    }`
+
+export const UPDATE_TICKET = gql`
+    mutation UpdateTicket($id: Int, $name: String!, $description: String!, $point: String!, $status: Int!, $projectId: Int!) {
+        updateTicket(input: {
+            id: $id, name: $name, description: $description, point: $point, status: $status, projectId: $projectId
+        })
+        {
+            id
+        }
+    }`
+
+export const ADD_USER_TICKET = gql`
+    mutation AddUserTicket($user_id: Int!, $ticket_id: Int!) {
+        addUserTicket(user_id: $user_id, ticket_id: $ticket_id){
             id
         }
     }`

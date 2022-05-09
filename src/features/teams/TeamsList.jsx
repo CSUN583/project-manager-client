@@ -10,11 +10,11 @@ import ListLayout from "../layout/ListLayout";
 const TeamsList = () => {
     const {setTeamId} = useContext(TeamContext)
 
+    const {error, loading, data} = useQuery(LIST_TEAMS);
+
     const handleClick = (id) => {
         setTeamId(id)
     }
-
-    const {error, loading, data, refetch} = useQuery(LIST_TEAMS);
 
     if (loading) return <LoadingCircle/>
 
@@ -32,7 +32,7 @@ const TeamsList = () => {
                     'text': 'Name',
                 },
             ]}
-            modal={<TeamModal refetch={refetch}/>}
+            modal={<TeamModal/>}
             data={data?.teams?.map(team => {
                 return {
                     'columns': [
