@@ -6,9 +6,10 @@ import {useMutation} from "@apollo/react-hooks";
 import {ADD_USER_TO_TEAM, REMOVE_USER_FROM_TEAM} from "../../gql";
 import {TeamContext} from "../teams/TeamsContext";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import {Apollo} from "../../apollo";
 
 
-const MemberModal = ({refetch}) => {
+const MemberModal = () => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -30,7 +31,7 @@ const MemberModal = ({refetch}) => {
                             user_id: key,
                             team_id: teamId,
                         }
-                    }).then(refetch)
+                    }).then(Apollo.resetStore)
                     break
                 case false:
                     RemoveUserFromTeam({
@@ -38,7 +39,7 @@ const MemberModal = ({refetch}) => {
                             user_id: key,
                             team_id: teamId,
                         }
-                    }).then(refetch)
+                    }).then(Apollo.resetStore)
                     break
                 default:
             }

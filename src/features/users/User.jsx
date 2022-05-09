@@ -27,11 +27,11 @@ const User = () => {
                     'text': 'Users'
                 },
                 {
-                    'text': data.user.name,
+                    'text': data?.user?.name,
                     'disabled': true
                 }
             ]}
-            title={`User: ${data.user.name}`}
+            title={`User: ${data?.user?.name}`}
             list={<UserInformation userData={data}/>}
         />
     )

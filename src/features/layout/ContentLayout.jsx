@@ -6,11 +6,13 @@ import HeaderGridProxy from "../proxy/HeaderGridProxy";
 import TitleProxy from "../proxy/TitleProxy";
 import Title from "../components/Title";
 import HeaderNavProxy from "../proxy/HeaderNavProxy";
+import Subtitle from "../components/Subtitle";
 
 const ContentLayout = (
     {
         breadcrumb = [],
         title = '',
+        subtitle = '',
         headerNav = <></>,
         info = <></>,
         list = <></>
@@ -38,6 +40,9 @@ const ContentLayout = (
                                     <Title>
                                         {title}
                                     </Title>
+                                    <Subtitle>
+                                        {subtitle}
+                                    </Subtitle>
                                 </TitleProxy>
                             </Grid>
                             <Grid item>

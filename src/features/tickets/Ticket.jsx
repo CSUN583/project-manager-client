@@ -1,11 +1,12 @@
 import React, {memo, useContext, useState} from "react";
 import {TeamContext} from "../teams/TeamsContext";
-import {useQuery} from "@apollo/react-hooks";
-import {GET_PROJECT_INFO, GET_TEAM_NAME, GET_TICKET, LIST_USERS} from "../../gql";
+import {useMutation, useQuery} from "@apollo/react-hooks";
+import {UPDATE_TICKET, GET_PROJECT_INFO, GET_TEAM_NAME, GET_TICKET} from "../../gql";
 import {Box, Container, Grid, MenuItem, TextField} from "@mui/material";
 import ContentLayout from "../layout/ContentLayout";
 import FormLayout from "../layout/FormLayout";
 import LoadingCircle from "../components/LoadingCircle";
+import {Apollo} from "../../apollo";
 
 export const ticket_status_enum = {
     0: "new",
@@ -21,17 +22,43 @@ export const ticket_color_enum = {
     1: "warning",
     2: "success",
     3: "secondary",
-    4: "error ",
+    4: "error",
     5: "info"
 }
 
 const Ticket = memo(() => {
     const {teamTicketId, setTeamTicketId, teamProjectId, setTeamProjectId, teamId, setTeamId} = useContext(TeamContext)
 
-    const [ticketDescription, setTicketDescription] = useState('')
+    const [ticketDescription, setTicketDescription] = useState(null)
     const [ticketPoint, setTicketPoint] = useState(null)
     const [ticketStatus, setTicketStatus] = useState(null)
-    const [ticketOwner, setTicketOwner] = useState(null)
+
+    const {error: projectError, loading: projectLoading, data: projectData} = useQuery(GET_PROJECT_INFO, {variables: {id: teamProjectId}});
+    const {error: teamError, loading: teamLoading, data: teamData} = useQuery(GET_TEAM_NAME, {variables: {id: teamId}});
+    const {error: ticketError, loading: ticketLoading, data: ticketData} = useQuery(GET_TICKET, {variables: {id: teamTicketId}});
+
+    const [UpdateTicket] = useMutation(UPDATE_TICKET)
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+
+        UpdateTicket({
+            variables: {
+                id: teamTicketId,
+                name: ticketData?.ticket?.name,
+                description: ticketDescription || ticketData?.ticket?.description,
+                point: ticketPoint || ticketData?.ticket?.point,
+                status: ticketStatus || ticketData?.ticket?.status,
+                projectId: teamProjectId
+            }
+        })
+        .then(Apollo.resetStore)
+        .finally(() => {
+            setTicketDescription(null)
+            setTicketPoint(null)
+            setTicketStatus(null)
+        })
+    }
 
     const handleBreadcrumTicketChange = () => {
         setTeamTicketId(null)
@@ -48,20 +75,8 @@ const Ticket = memo(() => {
         setTeamTicketId(null)
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-    }
-
-    const {error: projectError, loading: projectLoading, data: projectData} = useQuery(GET_PROJECT_INFO, {variables: {id: teamProjectId}});
-    const {error: teamError, loading: teamLoading, data: teamData} = useQuery(GET_TEAM_NAME, {variables: {id: teamId}});
-    const {error: ticketError, loading: ticketLoading, data: ticketData} = useQuery(GET_TICKET, {variables: {id: teamTicketId}});
-    const {error: userError, loading: userLoading, data: userData } = useQuery(LIST_USERS, {
-        fetchPolicy: "network-only",
-        nextFetchPolicy: "network-only"}
-    )
-
-    if (projectLoading || teamLoading || ticketLoading || userLoading) return <LoadingCircle/>
-    if (projectError || teamError || ticketError || userError) return null
+    if (projectLoading || teamLoading || ticketLoading) return <LoadingCircle/>
+    if (projectError || teamError || ticketError) return null
     return (
         <ContentLayout
             breadcrumb={[
@@ -83,6 +98,7 @@ const Ticket = memo(() => {
                 }
             ]}
             title={`Ticket: ${ticketData?.ticket?.name}`}
+            subtitle={`Owner: ${ticketData?.ticket?.owners[0]?.name}`}
             info={
                 <Box
                     ml={1}
@@ -91,7 +107,7 @@ const Ticket = memo(() => {
                         maxWidth='xs'
                     >
                         <FormLayout
-                            disabled={!ticketDescription && !ticketPoint && !ticketStatus && !ticketOwner}
+                            disabled={!ticketDescription && !ticketPoint && !ticketStatus}
                             label={'Update Ticket'}
                             onSubmit={handleSubmit}
                             content={
@@ -101,24 +117,6 @@ const Ticket = memo(() => {
                                         justifyContent='space-between'
                                         alignItems='center'
                                     >
-                                        <Grid item>
-                                            <TextField
-                                                select
-                                                fullWidth
-                                                label="Owner"
-                                                sx={{width: '16ch'}}
-                                                value={ticketOwner ? ticketOwner : ticketData?.ticket?.owners[0]?.name || ''}
-                                                onChange={e => setTicketOwner(e.target.value)}
-                                                variant="standard"
-                                                InputProps={{ disableUnderline: true }}
-                                            >
-                                                {userData?.users?.map( (user, i) =>
-                                                    <MenuItem key={i} value={user.name} dense>
-                                                        {user.name}
-                                                    </MenuItem>
-                                                )}
-                                            </TextField>
-                                        </Grid>
                                         <Grid item>
                                             <TextField
                                                 select
@@ -170,7 +168,7 @@ const Ticket = memo(() => {
                                         id="ticket-text-field-ticket-description"
                                         label="Description"
                                         variant="standard"
-                                        value={ticketDescription.length ? ticketDescription : ticketData?.ticket?.description}
+                                        value={ticketDescription != null ? ticketDescription : ticketData?.ticket?.description}
                                         onChange={e => setTicketDescription(e.target.value)}
                                         InputProps={{ disableUnderline: true }}
                                     />

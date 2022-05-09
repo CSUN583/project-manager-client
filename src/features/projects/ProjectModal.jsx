@@ -7,9 +7,10 @@ import FormLayout from "../layout/FormLayout";
 import {useMutation} from "@apollo/react-hooks";
 import {ADD_TEAM_TO_PROJECT, CREATE_PROJECT} from "../../gql";
 import {TeamContext} from "../teams/TeamsContext";
+import {Apollo} from "../../apollo";
 
 
-const ProjectModal = ({refetch}) => {
+const ProjectModal = () => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -44,7 +45,7 @@ const ProjectModal = ({refetch}) => {
                         team_id: teamId,
                         project_id: projectId,
                     }
-                }).then(refetch)
+                }).then(Apollo.resetStore)
             }
         }
         finally {

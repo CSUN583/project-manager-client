@@ -14,7 +14,7 @@ const UsersList = () => {
         setUserId(id)
     }
 
-    const {error, loading, data, refetch} = useQuery(LIST_USERS);
+    const {error, loading, data} = useQuery(LIST_USERS);
 
     if (loading) return <LoadingCircle/>
 
@@ -32,7 +32,7 @@ const UsersList = () => {
                     'text': 'Email',
                 },
             ]}
-            modal={<UserModal refetch={refetch}/>}
+            modal={<UserModal/>}
             data={data?.users?.map(user => {
                 return {
                     'columns': [

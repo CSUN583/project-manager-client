@@ -9,16 +9,17 @@ import ListLayout from "../layout/ListLayout";
 const MembersList = () => {
     const {teamId, setTeamMemberId} = useContext(TeamContext)
 
+    const {error, loading, data} = useQuery(LIST_TEAM_MEMBERS, {variables: {id: teamId}});
+
     const handleClick = (id) => {
         setTeamMemberId(id)
     }
-
-    const {error, loading, data, refetch} = useQuery(LIST_TEAM_MEMBERS, {variables: {id: teamId}});
 
     if (error) return null
 
     return (
         <ListLayout
+            disabled
             loading={loading}
             headerColumns={[
                 {
@@ -30,7 +31,7 @@ const MembersList = () => {
                     'text': 'Email',
                 },
             ]}
-            modal={<MemberModal refetch={refetch}/>}
+            modal={<MemberModal/>}
             data={data?.team?.members?.map(member => {
                 return {
                     'columns': [
