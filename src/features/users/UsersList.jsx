@@ -8,6 +8,7 @@ import LoadingCircle from "../components/LoadingCircle";
 
 
 const UsersList = () => {
+    // eslint-disable-next-line
     const [userId, setUserId] = useContext(UserContext)
 
     const handleClick = (id) => {
