@@ -4,9 +4,10 @@ import {useMutation} from "@apollo/react-hooks";
 import {CREATE_TEAM} from "../../gql";
 import ModalProxy from "../proxy/ModalProxy";
 import FormLayout from "../layout/FormLayout";
+import {Apollo} from "../../apollo";
 
 
-const TeamModal = ({refetch}) => {
+const TeamModal = () => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -25,8 +26,8 @@ const TeamModal = ({refetch}) => {
                 prefix: teamPrefix,
             }
         })
-            .then(r => refetch())
-            .finally(() => handleClose())
+            .then(Apollo.resetStore)
+            .finally(handleClose)
     }
 
     return (

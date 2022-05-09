@@ -11,11 +11,11 @@ import {ticket_color_enum, ticket_status_enum} from "./Ticket";
 const TicketsList = () => {
     const {teamProjectId, setTeamTicketId} = useContext(TeamContext)
 
+    const {error, loading, data} = useQuery(LIST_PROJECT_TICKETS, {variables: {id: teamProjectId}});
+
     const handleClick = (id) => {
         setTeamTicketId(id)
     }
-
-    const {error, loading, data, refetch} = useQuery(LIST_PROJECT_TICKETS, {variables: {id: teamProjectId}});
 
     if (loading) return <CircularProgress/>
 
@@ -33,7 +33,7 @@ const TicketsList = () => {
                     'text': 'Status',
                 },
             ]}
-            modal={<TicketModal refetch={refetch}/>}
+            modal={<TicketModal/>}
             data={data?.project?.tickets?.map(ticket => {
                 return {
                     'columns': [

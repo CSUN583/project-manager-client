@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Container, Grid, Typography} from "@mui/material";
+import {Box, Grid, Typography} from "@mui/material";
 
 const ProjectInfo = ({projectData}) => {
     const {description, startTime, endTime} = projectData.project

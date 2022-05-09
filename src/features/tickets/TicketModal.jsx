@@ -1,13 +1,14 @@
 import {useContext, useState} from "react";
 import {MenuItem, TextField} from "@mui/material";
 import {TeamContext} from "../teams/TeamsContext";
-import {useMutation} from "@apollo/react-hooks";
-import {CREATE_TICKET} from "../../gql";
+import {useMutation, useQuery} from "@apollo/react-hooks";
+import {ADD_USER_TICKET, CREATE_TICKET, LIST_USERS} from "../../gql";
 import ModalProxy from "../proxy/ModalProxy";
 import FormLayout from "../layout/FormLayout";
+import {Apollo} from "../../apollo";
 
 
-const TicketModal = ({refetch}) => {
+const TicketModal = () => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -17,14 +18,21 @@ const TicketModal = ({refetch}) => {
     const [ticketName, setTicketName] = useState('')
     const [ticketDescription, setTicketDescription] = useState('')
     const [ticketPoint, setTicketPoint] = useState('1')
+    const [ticketOwner, setTicketOwner] = useState('')
+
+    const {data: userData } = useQuery(LIST_USERS, {
+        fetchPolicy: "network-only",
+        nextFetchPolicy: "network-only"}
+    )
 
     const [CreateTicket] = useMutation(CREATE_TICKET)
+    const [AddUserTicket] = useMutation(ADD_USER_TICKET)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
         try {
-            await CreateTicket({
+            CreateTicket({
                 variables: {
                     name: ticketName,
                     description: ticketDescription,
@@ -33,8 +41,20 @@ const TicketModal = ({refetch}) => {
                     projectId: teamProjectId
                 }
             })
-                .then(refetch)
+            .then( res => {
+                AddUserTicket({
+                    variables: {
+                        user_id: parseInt(ticketOwner),
+                        ticket_id: parseInt(res.data.createTicket.id)
+                    }
+                })
+            })
+            .finally(Apollo.resetStore)
         } finally {
+            setTicketName('')
+            setTicketDescription('')
+            setTicketPoint('1')
+            setTicketOwner('')
             handleClose()
         }
     }
@@ -59,20 +79,35 @@ const TicketModal = ({refetch}) => {
                         inputProps={{maxLength: 15}}
                         autoComplete='off'
                         size='small'
-                        id="modal-ticket-text-field-ticket-name"
                         label="Name"
                         variant='standard'
                         value={ticketName}
                         onChange={e => setTicketName(e.target.value)}
                     />,
                     <TextField
-                        id="ticket-modal-text-field-ticket-point"
+                        required
+                        select
+                        fullWidth
+                        label="Owner"
+                        value={ticketOwner}
+                        onChange={e => setTicketOwner(e.target.value)}
+                        variant="standard"
+                        InputProps={{ disableUnderline: true }}
+                    >
+                        {userData?.users?.map( (user, i) =>
+                            <MenuItem key={i} value={user.id} dense>
+                                {user.name}
+                            </MenuItem>
+                        )}
+                    </TextField>,
+                    <TextField
+                        required
                         select
                         fullWidth
                         label="Points"
                         value={ticketPoint}
                         onChange={handlePointsChange}
-                        helperText="Select points value"
+                        helperText="Select points"
                         variant="standard"
                     >
                         {Array.from(Array(5).keys()).map(n => (
@@ -89,7 +124,6 @@ const TicketModal = ({refetch}) => {
                         size='small'
                         multiline
                         rows={4}
-                        id="ticket-modal-text-field-ticket-description"
                         label="Description"
                         variant='outlined'
                         value={ticketDescription}

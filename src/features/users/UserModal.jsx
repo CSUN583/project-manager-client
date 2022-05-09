@@ -4,8 +4,9 @@ import {useMutation} from "@apollo/react-hooks";
 import {CREATE_USER} from "../../gql";
 import ModalProxy from "../proxy/ModalProxy";
 import FormLayout from "../layout/FormLayout";
+import {Apollo} from "../../apollo";
 
-const UserModal = ({refetch}) => {
+const UserModal = () => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -24,8 +25,12 @@ const UserModal = ({refetch}) => {
                 email: userEmail,
             }
         })
-            .then(() => refetch())
-            .finally(() => handleClose())
+            .then(Apollo.resetStore)
+            .finally(() => {
+                setUserName('')
+                setUserEmail('')
+                handleClose()
+            })
     }
 
     return (

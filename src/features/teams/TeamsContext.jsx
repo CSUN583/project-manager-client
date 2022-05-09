@@ -14,7 +14,7 @@ const TeamsContext = () => {
             teamId, setTeamId,
             teamProjectId, setTeamProjectId,
             teamMemberId, setTeamMemberId,
-            teamTicketId, setTeamTicketId
+            teamTicketId, setTeamTicketId,
         }}>
             <TeamsNavigation />
         </TeamContext.Provider>

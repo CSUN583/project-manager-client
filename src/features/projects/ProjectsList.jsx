@@ -14,7 +14,7 @@ const ProjectsList = () => {
         setTeamProjectId(id)
     }
 
-    const {error, loading, data, refetch} = useQuery(LIST_TEAM_PROJECTS, {variables: {id: teamId}});
+    const {error, loading, data} = useQuery(LIST_TEAM_PROJECTS, {variables: {id: teamId}});
 
     if (loading) return <LoadingCircle/>
 
@@ -32,7 +32,7 @@ const ProjectsList = () => {
                     'text': 'End Date',
                 },
             ]}
-            modal={<ProjectModal refetch={refetch}/>}
+            modal={<ProjectModal/>}
             data={data?.team?.projects?.map(project => {
                 return {
                     'columns': [
