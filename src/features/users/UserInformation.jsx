@@ -1,10 +1,20 @@
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
 import {Box, Chip, Grid, Typography} from "@mui/material";
 import {ticket_color_enum, ticket_status_enum} from "../tickets/Ticket";
 import ListLayout from "../layout/ListLayout";
+import {SpeechContext} from "../page/Page";
 
 const UserInformation = ({userData}) => {
     const {email, tickets, teams} = userData.user
+    const {setInfoText} = useContext(SpeechContext)
+
+    useEffect(() => {
+        const emailText = email ? `email: ${email}` : ''
+        const teamsText = teams ? teams.map(team => `team ${team.prefix}, team name: ${team.name}`) : 'no teams'
+        const ticketsText = tickets ? tickets.map(ticket => `ticket name: ${ticket.name}, status: ${ticket_status_enum[ticket.status]}`).join(',') : 'no tickets'
+        setInfoText(`${emailText}, member of the following teams: ${teamsText}, assigned the following tickets: ${ticketsText}`)
+        return () => setInfoText('')
+    }, [email, setInfoText]);
 
     return (
         <Box
@@ -26,6 +36,7 @@ const UserInformation = ({userData}) => {
                     </Typography>
                     <ListLayout
                         disabled
+                        disableVoice
                         data={teams?.map(team => {
                             return {
                                 'columns': [
@@ -48,6 +59,7 @@ const UserInformation = ({userData}) => {
                     </Typography>
                     <ListLayout
                         disabled
+                        disableVoice
                         data={tickets?.map(ticket => {
                             return {
                                 'columns': [
