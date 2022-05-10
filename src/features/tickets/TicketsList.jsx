@@ -26,7 +26,7 @@ const TicketsList = () => {
             headerColumns={[
                 {
                     'width': 175,
-                    'text': 'Tickets',
+                    'text': 'Ticket Name',
                 },
                 {
                     'width': 75,
@@ -43,6 +43,7 @@ const TicketsList = () => {
                         },
                         {
                             'width': 90,
+                            'text': ticket_status_enum[ticket.status],
                             'component':
                                 <Chip
                                     sx={{width: '90px'}}
