@@ -4,15 +4,23 @@ import Footer from "./Footer";
 import {createContext, useState} from "react";
 import PageNavigation from "./PageNavigation";
 
-export const SpeechContext = createContext([]);
+export const SpeechContext = createContext({});
 export const LayoutContext = createContext([]);
 
 const Page = () => {
-    const [speech, setSpeech] = useState('')
+    const [contentText, setContentText] = useState('')
+    const [navText, setNavText] = useState('')
+    const [listText, setListText] = useState('')
+    const [infoText, setInfoText] = useState('')
     const [layout, setLayout] = useState('teams')
 
     return (
-        <SpeechContext.Provider value={[speech, setSpeech]}>
+        <SpeechContext.Provider value={{
+            contentText, setContentText,
+            navText, setNavText,
+            listText, setListText,
+            infoText, setInfoText
+        }}>
             <LayoutContext.Provider value={[layout, setLayout]}>
                 <Container
                     maxWidth='sm'
