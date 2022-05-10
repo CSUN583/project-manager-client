@@ -3,12 +3,11 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import ThemeToggle from "../theme/ThemeToggle";
 import {Grid, Typography} from "@mui/material";
 import {useContext} from "react";
-import {LayoutContext, SpeechContext} from "./Page";
+import {LayoutContext} from "./Page";
 import Voice from "../components/Voice";
 
 
 const Navbar = () => {
-    const [speech, setSpeech] = useContext(SpeechContext)
     const [layout, setLayout] = useContext(LayoutContext)
 
     const handleChange = (event, newValue) => {
@@ -38,7 +37,7 @@ const Navbar = () => {
                         </Typography>
                     </Grid>
                     <Grid item>
-                        <Voice text={speech}/>
+                        <Voice/>
                     </Grid>
                 </Grid>
             </Grid>
