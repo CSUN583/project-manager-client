@@ -1,22 +1,27 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {IconButton} from "@mui/material";
 import PlayCircleFilledWhiteIcon from '@mui/icons-material/PlayCircleFilledWhite';
 import StopCircleIcon from '@mui/icons-material/StopCircle';
+import {SpeechContext} from "../page/Page";
 
-const Voice = ({lang = "en-US", children = 'TEST'}) => {
+const Voice = ({lang = "en-US"}) => {
     const [speaking, setSpeaking] = useState(false)
+    const {contentText, navText, listText, infoText} = useContext(SpeechContext)
+
+    const speechText = `${contentText}, ${navText}, ${infoText}, ${listText}`
 
     const start = () => {
         const speech = new SpeechSynthesisUtterance();
         speech.onend = () => setSpeaking(false)
         speech.lang = lang
-        speech.text = children
+        speech.text = speechText
         setSpeaking(true)
         window.speechSynthesis.speak(speech);
     }
 
     const stop = () => {
         window.speechSynthesis.cancel();
+        setSpeaking(false)
     }
 
     switch (speaking){
