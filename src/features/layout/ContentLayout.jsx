@@ -7,8 +7,10 @@ import TitleProxy from "../proxy/TitleProxy";
 import Title from "../components/Title";
 import HeaderNavProxy from "../proxy/HeaderNavProxy";
 import Subtitle from "../components/Subtitle";
+import {useContext, memo, useEffect} from "react";
+import {SpeechContext} from "../page/Page";
 
-const ContentLayout = (
+const ContentLayout = memo((
     {
         breadcrumb = [],
         title = '',
@@ -17,6 +19,16 @@ const ContentLayout = (
         info = <></>,
         list = <></>
     }) => {
+
+    const {setContentText} = useContext(SpeechContext)
+
+    useEffect(() => {
+        const titleText = title ? `${title}` : ''
+        const subtitleText = subtitle ? `${subtitle}` : ''
+        setContentText(`${titleText}, ${subtitleText}`)
+        return () => setContentText('')
+    }, [setContentText, subtitle, title]);
+
     return (
         <ContentGridProxy>
             <Grid item>
@@ -62,6 +74,6 @@ const ContentLayout = (
             </Grid>
         </ContentGridProxy>
     );
-};
+});
 
 export default ContentLayout;

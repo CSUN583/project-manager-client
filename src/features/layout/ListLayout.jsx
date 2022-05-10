@@ -5,15 +5,29 @@ import ListRowGridProxy from "../proxy/ListRowGridProxy";
 import Button from "@mui/material/Button";
 import ListTextColumn from "../components/ListTextColumn";
 import LoadingCircle from "../components/LoadingCircle";
+import {memo, useContext, useEffect} from "react";
+import {SpeechContext} from "../page/Page";
 
-const ListLayout = (
+const ListLayout = memo((
     {
         headerColumns=[],
         modal=<></>,
         data=[],
         loading=false,
-        disabled=false
+        disabled=false,
+        disableVoice=false
     }) => {
+
+    const {setListText} = useContext(SpeechContext)
+
+    useEffect(() => {
+        if (!disableVoice){
+            const listText = data?.map(row => row.columns.map((c, i) => `${headerColumns[i]?.text}: ${c.text}`).join(',')).join(',')
+            setListText(`The items listed are: ${listText}`)
+        }
+        return () => setListText('')
+    }, [data, disableVoice, headerColumns, setListText]);
+
     return (
         <ListContainerProxy>
             <ListItem>
@@ -52,7 +66,7 @@ const ListLayout = (
                                                 <Grid key={i} item>
                                                     <ListTextColumn
                                                         width={col.width}
-                                                        text={col.text}
+                                                        text={!col.component && col.text}
                                                         component={col.component}
                                                     />
                                                 </Grid>
@@ -77,6 +91,6 @@ const ListLayout = (
             }
         </ListContainerProxy>
     );
-};
+});
 
 export default ListLayout;

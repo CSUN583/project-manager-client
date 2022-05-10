@@ -1,8 +1,15 @@
-import React from 'react';
+import React, {memo, useContext, useEffect} from 'react';
 import {Box, Grid, Typography} from "@mui/material";
+import {SpeechContext} from "../page/Page";
 
-const ProjectInfo = ({projectData}) => {
+const ProjectInfo = memo(({projectData}) => {
     const {description, startTime, endTime} = projectData.project
+    const {setInfoText} = useContext(SpeechContext)
+
+    useEffect(() => {
+        setInfoText(`start time: ${startTime}, end time: ${endTime}, summary: ${description}`)
+        return () => setInfoText('')
+    }, [description, endTime, setInfoText, startTime]);
 
     return (
         <Box
@@ -69,6 +76,6 @@ const ProjectInfo = ({projectData}) => {
             </Grid>
         </Box>
     );
-};
+});
 
 export default ProjectInfo;

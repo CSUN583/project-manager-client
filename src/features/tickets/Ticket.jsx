@@ -1,4 +1,4 @@
-import React, {memo, useContext, useState} from "react";
+import React, {memo, useContext, useEffect, useState} from "react";
 import {TeamContext} from "../teams/TeamsContext";
 import {useMutation, useQuery} from "@apollo/react-hooks";
 import {UPDATE_TICKET, GET_PROJECT_INFO, GET_TEAM_NAME, GET_TICKET} from "../../gql";
@@ -7,6 +7,7 @@ import ContentLayout from "../layout/ContentLayout";
 import FormLayout from "../layout/FormLayout";
 import LoadingCircle from "../components/LoadingCircle";
 import {Apollo} from "../../apollo";
+import {SpeechContext} from "../page/Page";
 
 export const ticket_status_enum = {
     0: "new",
@@ -38,6 +39,16 @@ const Ticket = memo(() => {
     const {error: ticketError, loading: ticketLoading, data: ticketData} = useQuery(GET_TICKET, {variables: {id: teamTicketId}});
 
     const [UpdateTicket] = useMutation(UPDATE_TICKET)
+
+    const {setInfoText} = useContext(SpeechContext)
+
+    useEffect(() => {
+        const ticketPointText = ticketPoint ? `${ticketPoint}` : `${ticketData?.ticket?.point}`
+        const ticketStatusText = ticketStatus ? ticket_status_enum[ticketStatus] : ticket_status_enum[ticketData?.ticket?.status]
+        const ticketDescriptionText = ticketDescription != null ? ticketDescription : ticketData?.ticket?.description
+        setInfoText(`points: ${ticketPointText}, status: ${ticketStatusText}, description: ${ticketDescriptionText}`)
+        return () => setInfoText('')
+    }, [setInfoText, ticketData?.ticket?.description, ticketData?.ticket?.point, ticketData?.ticket?.status, ticketDescription, ticketPoint, ticketStatus]);
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -165,7 +176,6 @@ const Ticket = memo(() => {
                                         size='small'
                                         multiline
                                         rows={4}
-                                        id="ticket-text-field-ticket-description"
                                         label="Description"
                                         variant="standard"
                                         value={ticketDescription != null ? ticketDescription : ticketData?.ticket?.description}

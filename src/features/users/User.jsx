@@ -32,7 +32,7 @@ const User = () => {
                 }
             ]}
             title={`User: ${data?.user?.name}`}
-            list={<UserInformation userData={data}/>}
+            info={<UserInformation userData={data}/>}
         />
     )
 };
