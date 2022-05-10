@@ -1,4 +1,4 @@
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {TeamContext} from "./TeamsContext";
 import {useQuery} from "@apollo/react-hooks";
 import MembersList from "../members/MembersList";
@@ -8,11 +8,20 @@ import {GET_TEAM_NAME} from "../../gql";
 import ProjectsList from "../projects/ProjectsList";
 import ContentLayout from "../layout/ContentLayout";
 import LoadingCircle from "../components/LoadingCircle";
+import {SpeechContext} from "../page/Page";
 
 const Team = () => {
     const {teamId, setTeamId} = useContext(TeamContext)
+    const {setNavText} = useContext(SpeechContext)
 
     const [navigation, setNavigation] = useState('projects')
+
+    const {error, loading, data} = useQuery(GET_TEAM_NAME, {variables: {id: teamId}});
+
+    useEffect(() => {
+        setNavText(navigation);
+        return () => setNavText('');
+    }, [setNavText, navigation]);
 
     const handleNavigationChange = (event, newValue) => {
         setNavigation(newValue);
@@ -21,8 +30,6 @@ const Team = () => {
     const handleBreadcrumChange = () => {
         setTeamId(null);
     };
-
-    const {error, loading, data} = useQuery(GET_TEAM_NAME, {variables: {id: teamId}});
 
     if (loading) return <LoadingCircle/>
 
