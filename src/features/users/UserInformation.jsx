@@ -14,7 +14,7 @@ const UserInformation = ({userData}) => {
         const ticketsText = tickets ? tickets.map(ticket => `ticket name: ${ticket.name}, status: ${ticket_status_enum[ticket.status]}`).join(',') : 'no tickets'
         setInfoText(`${emailText}, member of the following teams: ${teamsText}, assigned the following tickets: ${ticketsText}`)
         return () => setInfoText('')
-    }, [email, setInfoText]);
+    }, [email, setInfoText, teams, tickets]);
 
     return (
         <Box
