@@ -16,30 +16,32 @@ const Voice = ({lang = "en-US"}) => {
         speech.lang = lang
         speech.text = speechText
         setSpeaking(true)
-        window.speechSynthesis.speak(speech);
+        window?.speechSynthesis?.speak(speech);
     }
 
     const stop = () => {
-        window.speechSynthesis.cancel();
+        window?.speechSynthesis?.cancel();
         setSpeaking(false)
     }
 
-    switch (speaking){
-        case true:
-            return (
-                <IconButton onClick={stop} color='secondary'>
-                    <StopCircleIcon/>
-                </IconButton>
-            )
-        case false:
-            return (
-                <IconButton onClick={start} color='primary'>
-                    <PlayCircleFilledWhiteIcon/>
-                </IconButton>
-            )
-        default:
-            return null
-    }
+    if ("speechSynthesis" in window)
+        switch (speaking){
+            case true:
+                return (
+                    <IconButton onClick={stop} color='secondary'>
+                        <StopCircleIcon/>
+                    </IconButton>
+                )
+            case false:
+                return (
+                    <IconButton onClick={start} color='primary'>
+                        <PlayCircleFilledWhiteIcon/>
+                    </IconButton>
+                )
+            default:
+                return null
+        }
+    else return null
 };
 
 export default Voice;
